@@ -1,0 +1,7 @@
+.vs/
+*.p7s
+*.nupkg
+obj/
+bin/
+*.exe
+*.suo
