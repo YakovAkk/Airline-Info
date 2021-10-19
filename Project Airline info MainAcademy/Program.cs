@@ -9,18 +9,11 @@ namespace Project_Airline_info_MainAcademy
 {
     class Program
     {
-        static List<Timetable> timetables = new List<Timetable>();
-        static Aeroport BoryspilAero = new Aeroport("Boryspil airport", 10);
-        static Aeroport LvivAero = new Aeroport("Lviv airport", 8);
-        static Aeroport KievAero = new Aeroport("airport Kiev", 6);
-        static Aeroport OdessaAero = new Aeroport("Odessa airport", 6);
-        static Aeroport KharkivAero = new Aeroport("Kharkiv airport", 4);
-
+        static Admin admin = new Admin();
+        
         static void Main(string[] args)
         {
-            AddPlanesToAeroports();
-            AddToListTimetable();
-
+           
 
             Console.WriteLine("Good afternoon , you are greetings by Yakov's aeroport company. Do you want to choose city with aeroport?");
             Console.WriteLine("1) Choose the city with aeroport");
@@ -47,54 +40,15 @@ namespace Project_Airline_info_MainAcademy
                 break;
             }
         }
-
         private static void MenuCityWithAeroport()
         {
             var FlagMain = true;
             while (FlagMain)
             {
                 Header();
-                switch (Initialization("Your choose : "))
-                {
-                    case 1:
-                    {
-                        MenuOfAeroport(BoryspilAero);
+                var NumOfAeroport = Initialization("Your choose : ");
 
-                        break;
-                    }
-                    case 2:
-                    {
-                        
-                        MenuOfAeroport(LvivAero);
-
-                        break;
-                    }
-                    case 3:
-                    {
-                        MenuOfAeroport(KievAero);
-
-                        break;
-                    }
-                    case 4:
-                    {
-                        MenuOfAeroport(OdessaAero);
-
-                        break;
-                    }
-                    case 5:
-                    {
-                        MenuOfAeroport(KharkivAero);
-
-                        break;
-                    }
-                    case 6:
-                    {
-                        FlagMain = false;
-                        break;
-                    }
-                    default:
-                    break;
-                }
+                MenuOfAeroport(admin.FindTheAeroportWithIndex(NumOfAeroport));
 
             }
         }
@@ -140,36 +94,12 @@ namespace Project_Airline_info_MainAcademy
                                 Console.Clear();
                                 Console.WriteLine("Plane will be flown to aeroport, choose it ");
                                 Header();
-                                switch (Initialization("Your choose : "))
-                                {
-                                    case 1:
-                                    {
-                                        DepartAtNextAero(TempPlane , BoryspilAero);
-                                        break;
-                                    }
-                                    case 2:
-                                    {
-                                        DepartAtNextAero(TempPlane, LvivAero);
-                                        break;
-                                    }
-                                    case 3:
-                                    {
-                                        DepartAtNextAero(TempPlane, KievAero);
-                                        break;
-                                    }
-                                    case 4:
-                                    {
-                                        DepartAtNextAero(TempPlane, OdessaAero);
-                                        break;
-                                    }
-                                    case 5:
-                                    {
-                                        DepartAtNextAero(TempPlane, KharkivAero);
-                                        break;
-                                    }
-                                    default:
-                                    break;
-                                }
+
+                                var NumOfAeroport = Initialization("Your choose : ");
+
+                               
+                                admin.DepartAtNextAero(TempPlane, admin.FindTheAeroportWithIndex(NumOfAeroport));
+                                
                                 aeroport.RemovePlaneFromAeroport(TempPlane);
 
                             }
@@ -208,10 +138,10 @@ namespace Project_Airline_info_MainAcademy
                     case 5:
                     {
                         Console.Clear();
-                        PrintTimetableForAeroport(aeroport);
+                        Timetable.PrintTimetableForAeroport(aeroport);
                         Console.WriteLine("Enter something...");
                         Console.ReadKey();
-                        
+
                         break;
                     }
                     case 6:
@@ -321,7 +251,7 @@ namespace Project_Airline_info_MainAcademy
                     case 3:
                     {
                         Console.Clear();
-                        PrintTimetableForPlane(TempPlane);
+                        Timetable.PrintTimetableForPlane(TempPlane);
                         Console.WriteLine("Enter something...");
                         Console.ReadKey();
                         break;
@@ -350,61 +280,6 @@ namespace Project_Airline_info_MainAcademy
                 }
             }
 
-        }
-        private static void AddPlanesToAeroports()
-        {
-            // Boruspil
-            var Boeing737 = new Plane("Boeing737", 70, 50, 20);
-            var Ту104 = new Plane("Ту104", 75, 50, 30);
-            var Boeing777Х = new Plane("Boeing777Х", 77, 60, 10);
-            var Boeing747 = new Plane("Boeing747", 80, 40, 10);
-            var А380 = new Plane("А380", 80, 40, 20);
-
-            BoryspilAero.AddPlaneToAeroport(Boeing737);
-            BoryspilAero.AddPlaneToAeroport(Ту104);
-            BoryspilAero.AddPlaneToAeroport(Boeing777Х);
-            BoryspilAero.AddPlaneToAeroport(Boeing747);
-            BoryspilAero.AddPlaneToAeroport(А380);
-
-            // Kharkiv
-            var Boeing730 = new Plane("Boeing737", 70, 50, 20);
-            var Ту100 = new Plane("Ту104", 75, 50, 30);
-
-            KharkivAero.AddPlaneToAeroport(Boeing730);
-            KharkivAero.AddPlaneToAeroport(Ту100);
-
-            // Odessa
-
-            var Boeing777 = new Plane("Boeing777Х", 77, 60, 10);
-            var Boeing740 = new Plane("Boeing747", 80, 40, 10);
-            var А381 = new Plane("А380", 80, 40, 20);
-
-            OdessaAero.AddPlaneToAeroport(Boeing777);
-            OdessaAero.AddPlaneToAeroport(Boeing740);
-            OdessaAero.AddPlaneToAeroport(А381);
-
-            // Kiev
-
-            var Boeing731 = new Plane("Boeing737", 70, 50, 20);
-            var Ту101 = new Plane("Ту104", 75, 50, 30);
-            var Boeing666 = new Plane("Boeing777Х", 77, 60, 10);
-
-            KievAero.AddPlaneToAeroport(Boeing731);
-            KievAero.AddPlaneToAeroport(Ту101);
-            KievAero.AddPlaneToAeroport(Boeing666);
-
-            // Lviv
-
-            var Boeing732 = new Plane("Boeing737", 70, 50, 20);
-            var Ту102 = new Plane("Ту104", 75, 50, 30);
-            var Boeing444 = new Plane("Boeing777Х", 77, 60, 10);
-            var Boeing742 = new Plane("Boeing747", 80, 40, 10);
-
-
-            LvivAero.AddPlaneToAeroport(Boeing732);
-            LvivAero.AddPlaneToAeroport(Ту102);
-            LvivAero.AddPlaneToAeroport(Boeing444);
-            LvivAero.AddPlaneToAeroport(Boeing742);
         }
         private static void HeaderMenuOfAeroport(Aeroport aeroport)
         {
@@ -462,62 +337,6 @@ namespace Project_Airline_info_MainAcademy
             }
 
             return valueUser;
-        }
-        private async static void DepartAtNextAero(Plane TempPlane , Aeroport aeroport)
-        {
-            await Task.Run(() =>
-            {
-                TempPlane.SetStatusOfFly(StatusOfFly.DepartedAt);
-                Console.Clear();
-                Console.WriteLine(TempPlane.ToString() + "Will arrive to " + aeroport.GetName() + "in 3 min 20 sec");
-                Task.Delay(200000); // 3 min 20 sec
-
-                aeroport.AddPlaneToAeroport(TempPlane);
-                TempPlane.SetStatusOfFly(StatusOfFly.Arrived);
-            });
-        }
-        private static void AddToTimetable(Aeroport aeroport1, Aeroport aeroport2)
-        {
-            foreach (var item in aeroport1.GetPlanes())
-            {
-                timetables.Add(new Timetable(item.GetName(), aeroport1.GetName(), new DateTime().Date.AddDays(1), aeroport2.GetName(),
-                    new DateTime().Date.AddDays(2), item.GetFreePlaces()));
-            }
-        }
-        private static void AddToListTimetable()
-        {
-            AddToTimetable(BoryspilAero, LvivAero);
-            AddToTimetable(BoryspilAero, KievAero);
-            AddToTimetable(BoryspilAero, OdessaAero);
-            AddToTimetable(BoryspilAero, KharkivAero);
-            AddToTimetable(LvivAero, KievAero);
-            AddToTimetable(LvivAero, OdessaAero);
-            AddToTimetable(LvivAero, KharkivAero);
-            AddToTimetable(KievAero, OdessaAero);
-            AddToTimetable(KievAero, KharkivAero);
-            AddToTimetable(OdessaAero, KharkivAero);
-        }
-        private static void PrintTimetableForAeroport(Aeroport aeroport)
-        {
-            foreach (var timetable in timetables)
-            {
-                if (timetable.GetStartPoint() == aeroport.GetName() || timetable.GetEndPoint() == aeroport.GetName())
-                {
-                    Console.WriteLine(timetable.ToString());
-                    Console.WriteLine("================================================");
-                }
-            }
-        }
-        private static void PrintTimetableForPlane(Plane plane)
-        {
-            foreach (var timetable in timetables)
-            {
-                if (timetable.GetNameOfPlane() == plane.GetName())
-                {
-                    Console.WriteLine(timetable.ToString());
-                    Console.WriteLine("================================================");
-                }
-            }
         }
     }
 }

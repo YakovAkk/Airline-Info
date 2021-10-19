@@ -8,12 +8,13 @@ namespace Project_Airline_info_MainAcademy
 {
     class Aeroport
     {
+
         static Random random = new Random();
         int CountOfPeopleInArroport { get; set; }
         int MinPeople = 200;
         int MaxPeople = 300;
         string NameOfAeroport { get; }
-        int countOfPlace { get; }
+        public int countOfPlace { get; }
         List<Plane> placeForPlane = new List<Plane>();
         List<Person> peopleInAeroport = new List<Person>();
        
@@ -44,6 +45,8 @@ namespace Project_Airline_info_MainAcademy
         {
             return placeForPlane.ElementAt(index - 1);
         }
+
+        
         public void AddPlaneToAeroport(Plane plane)
         {
             if(CountOfPlane() < countOfPlace)

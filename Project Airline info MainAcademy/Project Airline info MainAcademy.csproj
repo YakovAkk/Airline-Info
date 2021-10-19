@@ -61,7 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
     <Compile Include="Aeroport.cs" />
+    <Compile Include="Parse.cs" />
     <Compile Include="Passport.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Plane.cs" />
