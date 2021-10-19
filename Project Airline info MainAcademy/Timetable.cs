@@ -8,7 +8,7 @@ namespace Project_Airline_info_MainAcademy
 {
     class Timetable
     {
-        public static readonly List<Timetable> timetables = new List<Timetable>();
+        public static readonly List<Timetable> Timetables = new List<Timetable>();
 
         static int CountOFRaces = 0;
         int NumOfRace { get; set; }
@@ -20,9 +20,9 @@ namespace Project_Airline_info_MainAcademy
         DateTime StartTimeOfDeparture = new DateTime();
         DateTime EndTimeOfDeparture = new DateTime();
 
-        public Timetable(List<Aeroport> aeroports) // for schedule management
+        public Timetable(List<Aeroport> TempAeroports) // for schedule management
         {
-            AddToTimetable(aeroports);
+            AddToTimetable(TempAeroports);
         }
         public Timetable(string NameOfPlane, string StartPoint ,DateTime StartTimeOfDeparture, string EndPoint ,
             DateTime EndTimeOfDeparture , int CountOfFreePlaces)
@@ -55,43 +55,43 @@ namespace Project_Airline_info_MainAcademy
             return NameOfPlane;
         }
 
-        public static void PrintTimetableForAeroport(Aeroport aeroport)
+        public static void PrintTimetableForAeroport(Aeroport TempAeroports)
         {
-            foreach (var timetable in timetables)
+            foreach (var Timetable in Timetables)
             {
-                if (timetable.GetStartPoint() == aeroport.GetName() || timetable.GetEndPoint() == aeroport.GetName())
+                if (Timetable.GetStartPoint() == TempAeroports.GetName() || Timetable.GetEndPoint() == TempAeroports.GetName())
                 {
-                    Console.WriteLine(timetable.ToString());
+                    Console.WriteLine(Timetable.ToString());
                     Console.WriteLine("================================================");
                 }
             }
         }
-        public static void PrintTimetableForPlane(Plane plane)
+        public static void PrintTimetableForPlane(Plane TempPlane)
         {
-            foreach (var timetable in timetables)
+            foreach (var Timetable in Timetables)
             {
-                if (timetable.GetNameOfPlane() == plane.GetName())
+                if (Timetable.GetNameOfPlane() == TempPlane.GetName())
                 {
-                    Console.WriteLine(timetable.ToString());
+                    Console.WriteLine(Timetable.ToString());
                     Console.WriteLine("================================================");
                 }
             }
         }
-        private void AddToTimetable(List<Aeroport> aeroports)
+        private void AddToTimetable(List<Aeroport> Tempaeroports)
         {
-            foreach (var aeroport1 in aeroports)
+            foreach (var Aeroport1 in Tempaeroports)
             {
-                foreach (var aeroport2 in aeroports)
+                foreach (var Aeroport2 in Tempaeroports)
                 {
-                    if (aeroport1.GetName() == aeroport2.GetName())
+                    if (Aeroport1.GetName() == Aeroport2.GetName())
                     {
                         break;
                     }
                     else
                     {
-                        foreach (var item in aeroport2.GetPlanes())
+                        foreach (var item in Aeroport2.GetPlanes())
                         {
-                            timetables.Add(new Timetable(item.GetName(), aeroport1.GetName(), new DateTime().Date.AddDays(1), aeroport2.GetName(),
+                            Timetables.Add(new Timetable(item.GetName(), Aeroport1.GetName(), new DateTime().Date.AddDays(1), Aeroport2.GetName(),
                             new DateTime().Date.AddDays(2), item.GetFreePlaces()));
                         }
                     }

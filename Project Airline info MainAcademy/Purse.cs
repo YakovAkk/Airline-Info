@@ -15,10 +15,10 @@ namespace Project_Airline_info_MainAcademy
     }
     class Purse
     {
-        static Random random = new Random(); // Amount in Person's pusre is randomed by the variable 
+        static Random UserRandom = new Random(); // Amount in Person's pusre is randomed by the variable 
         int RandAmountMax = 10000;
         int RandAmountMin = 2000;
-        CurrencyType typeOfMoney { get; set; }
+        CurrencyType TypeOfMoney { get; set; }
         double Amount { get; set; }
 
         static double CourseToUSD { get; set; }
@@ -28,14 +28,14 @@ namespace Project_Airline_info_MainAcademy
         // Constructors
         public Purse()
         {
-            typeOfMoney = CurrencyType.UAH;
-            Amount = random.Next(RandAmountMin, RandAmountMax);
+            TypeOfMoney = CurrencyType.UAH;
+            Amount = UserRandom.Next(RandAmountMin, RandAmountMax);
             CourseToUSD = 26.55;
             CourseToEU = 30.51;
         }
         public Purse(CurrencyType typeOfMoney, double Amount)
         {
-            this.typeOfMoney = typeOfMoney;
+            this.TypeOfMoney = typeOfMoney;
             this.Amount = Amount;
             this.Amount = this.MoneyExchange();
             CourseToUSD = 26.55;
@@ -44,18 +44,18 @@ namespace Project_Airline_info_MainAcademy
         //Methoods
         private double MoneyExchange()
         {
-            if (typeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyType.UAH)
             {
                 return Amount;
             }
-            if (typeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyType.USD)
             {
-                typeOfMoney = CurrencyType.UAH;
+                TypeOfMoney = CurrencyType.UAH;
                 return Amount * CourseToUSD;
             }
-            if (typeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyType.EU)
             {
-                typeOfMoney = CurrencyType.UAH;
+                TypeOfMoney = CurrencyType.UAH;
                 return Amount * CourseToEU;
             }
             else
@@ -63,17 +63,17 @@ namespace Project_Airline_info_MainAcademy
                 return 0;
             }
         }
-        private double MoneyConvertor(CurrencyType typeOfMoney)
+        private double MoneyConvertor(CurrencyType TypeOfMoney)
         {
-            if (typeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyType.UAH)
             {
                 return Amount;
             }
-            if (typeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyType.USD)
             {
                 return Amount / CourseToUSD;
             }
-            if (typeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyType.EU)
             {
                 return Amount / CourseToEU;
             }
@@ -82,46 +82,46 @@ namespace Project_Airline_info_MainAcademy
                 return 0;
             }
         }
-        public double GetBalance(CurrencyType typeOfMoney = CurrencyType.UAH)
+        public double GetBalance(CurrencyType TypeOfMoney = CurrencyType.UAH)
         {
-            return MoneyConvertor(typeOfMoney);
+            return MoneyConvertor(TypeOfMoney);
         }
-        public void ShowBalance(CurrencyType typeOfMoney = CurrencyType.UAH)
+        public void ShowBalance(CurrencyType TypeOfMoney = CurrencyType.UAH)
         {
-            Console.WriteLine($"Type of money is {typeOfMoney.ToString()}");
-            Console.WriteLine($"Balance is {MoneyConvertor(typeOfMoney)}");
+            Console.WriteLine($"Type of money is {TypeOfMoney.ToString()}");
+            Console.WriteLine($"Balance is {MoneyConvertor(TypeOfMoney)}");
         }
-        public void AddMoney(CurrencyType typeOfMoney, double Amount)
+        public void AddMoney(CurrencyType TypeOfMoney, double Amount)
         {
             double Money = 0;
 
-            if (typeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyType.UAH)
             {
                 Money += Amount;
             }
-            if (typeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyType.USD)
             {
                 Money += Amount * 26.55;
             }
-            if (typeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyType.EU)
             {
                 Money += Amount * 30.79;
             }
             this.Amount += Money;
         }
-        public void RemoveFromBalance(CurrencyType typeOfMoney, double Amount)
+        public void RemoveFromBalance(CurrencyType TypeOfMoney, double Amount)
         {
             double Money = 0;
 
-            if (typeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyType.UAH)
             {
                 Money += Amount;
             }
-            if (typeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyType.USD)
             {
                 Money += Amount * CourseToUSD;
             }
-            if (typeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyType.EU)
             {
                 Money += Amount * CourseToEU;
             }
@@ -140,15 +140,15 @@ namespace Project_Airline_info_MainAcademy
         }
         public string GetCurrencyType()
         {
-            return typeOfMoney.ToString();
+            return TypeOfMoney.ToString();
         }
         public override string ToString()
         {
             return $"Type of money is {CurrencyType.UAH}. " + $"Balance is {this.Amount}";
         }
-        public void setCourseEU(double value)
+        public void setCourseEU(double Value)
         {
-            CourseToEU = value;
+            CourseToEU = Value;
         }
 
         public void setCourseUSD(double value)

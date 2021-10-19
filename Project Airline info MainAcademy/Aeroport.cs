@@ -9,49 +9,49 @@ namespace Project_Airline_info_MainAcademy
     class Aeroport
     {
 
-        static Random random = new Random();
+        static Random UsersRandom = new Random();
         int CountOfPeopleInArroport { get; set; }
         int MinPeople = 200;
         int MaxPeople = 300;
         string NameOfAeroport { get; }
-        public int countOfPlace { get; }
-        List<Plane> placeForPlane = new List<Plane>();
-        List<Person> peopleInAeroport = new List<Person>();
+        public int CountOfPlace { get; }
+        List<Plane> PlaceForPlane = new List<Plane>();
+        List<Person> PeopleInAeroport = new List<Person>();
        
         public void RemoveFromListWithPeople(List<Person> people)
         {
             foreach (var person in people)
             {
-                peopleInAeroport.Remove(person);
+                PeopleInAeroport.Remove(person);
             }
         }
         public List<Person> GetListWithPeopleInAeroport()
         {
-            return peopleInAeroport;
+            return PeopleInAeroport;
         }
         public int GetCountOfLitsWithPeopleInAeroport()
         {
-            return peopleInAeroport.Count();
+            return PeopleInAeroport.Count();
         }
         public Aeroport(string NameOfAeroport, int countOfPlace)
         {
-            CountOfPeopleInArroport = random.Next(MinPeople, MaxPeople);
+            CountOfPeopleInArroport = UsersRandom.Next(MinPeople, MaxPeople);
             this.NameOfAeroport = NameOfAeroport; 
-            this.countOfPlace = countOfPlace;
-            peopleInAeroport = GetSomePeople();
+            this.CountOfPlace = countOfPlace;
+            PeopleInAeroport = GetSomePeople();
 
         }
         public Plane FindThePlaneWithIndex(int index)
         {
-            return placeForPlane.ElementAt(index - 1);
+            return PlaceForPlane.ElementAt(index - 1);
         }
 
         
         public void AddPlaneToAeroport(Plane plane)
         {
-            if(CountOfPlane() < countOfPlace)
+            if(CountOfPlane() < CountOfPlace)
             {
-                placeForPlane.Add(plane);
+                PlaceForPlane.Add(plane);
             }
             else
             {
@@ -67,9 +67,9 @@ namespace Project_Airline_info_MainAcademy
             }
             else
             {
-                if (placeForPlane.Contains(plane))
+                if (PlaceForPlane.Contains(plane))
                 {
-                    placeForPlane.Remove(plane);
+                    PlaceForPlane.Remove(plane);
                 }
                 else
                 {
@@ -81,12 +81,12 @@ namespace Project_Airline_info_MainAcademy
         }
         public int CountOfPlane()
         {
-            return placeForPlane.Count;
+            return PlaceForPlane.Count;
         }
         public void AllInfoAboutPlane()
         {
             int count = 1;
-            foreach (var plane in placeForPlane)
+            foreach (var plane in PlaceForPlane)
             {
                 Console.WriteLine( $"{count}) " + plane.ToString());
                 count++;
@@ -94,7 +94,7 @@ namespace Project_Airline_info_MainAcademy
         }
         public override string ToString()
         {
-            return $"Name {NameOfAeroport} \nIn the aerodrome {countOfPlace} places \nOccupied places {CountOfPlane()} \nFree places {countOfPlace - CountOfPlane()}";
+            return $"Name {NameOfAeroport} \nIn the aerodrome {CountOfPlace} places \nOccupied places {CountOfPlane()} \nFree places {CountOfPlace - CountOfPlane()}";
         }
 
         public string GetName()
@@ -103,19 +103,19 @@ namespace Project_Airline_info_MainAcademy
         }
         private List<Person> GetSomePeople()
         {
-            List<Person> people = new List<Person>();
+            List<Person> People = new List<Person>();
 
             for (int i = 0; i < CountOfPeopleInArroport; i++)
             {
-                people.Add(new Person(new Passport(), new Purse()));
+                People.Add(new Person(new Passport(), new Purse()));
             }
 
-            return people;
+            return People;
         }
         
         public List<Plane> GetPlanes()
         {
-            return placeForPlane;
+            return PlaceForPlane;
         }
         
     }

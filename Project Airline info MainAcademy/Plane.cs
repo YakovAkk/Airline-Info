@@ -32,44 +32,44 @@ namespace Project_Airline_info_MainAcademy
 
 
         // price for one place in every class
-        Purse priceFirst = new Purse(CurrencyType.USD, 200);
+        Purse PriceFirst = new Purse(CurrencyType.USD, 200);
 
-        Purse priceBusiness = new Purse(CurrencyType.USD, 100);
+        Purse PriceBusiness = new Purse(CurrencyType.USD, 100);
 
-        Purse priceEconomy = new Purse(CurrencyType.USD, 30);
+        Purse PriceEconomy = new Purse(CurrencyType.USD, 30);
 
 
         // Get price for classes
         public Purse GetPriceFirstClass()
         {
-            return priceFirst;
+            return PriceFirst;
         }
         public Purse GetPriceBusinessClass()
         {
-            return priceBusiness;
+            return PriceBusiness;
         }
         public Purse GetPriceEconomyClass()
         {
-            return priceEconomy;
+            return PriceEconomy;
         }
 
         // lists with person in everyone class
-        List<Person> listOfPeopleEconomyClass;
-        List<Person> listOfPeopleBusinessClass;
-        List<Person> listOfPeopleFirstClass;
+        List<Person> ListOfPeopleEconomyClass;
+        List<Person> ListOfPeopleBusinessClass;
+        List<Person> ListOfPeopleFirstClass;
 
         // Get list with people in each class
         public List<Person> GetListWithPeopleInPlaneFirstClass()
         {
-            return listOfPeopleFirstClass;
+            return ListOfPeopleFirstClass;
         }
         public List<Person> GetListWithPeopleInPlaneBusinessClass()
         {
-            return listOfPeopleBusinessClass;
+            return ListOfPeopleBusinessClass;
         }
         public List<Person> GetListWithPeopleInPlaneEconomyClass()
         {
-            return listOfPeopleEconomyClass;
+            return ListOfPeopleEconomyClass;
         }
 
         //constructor
@@ -80,9 +80,9 @@ namespace Project_Airline_info_MainAcademy
             MaxPlaceFirstClass = 0;
             MaxPlaceBusinessClass = 0;
             MaxPlaceEcomomyClass = 0;
-            listOfPeopleEconomyClass = new List<Person>();
-            listOfPeopleBusinessClass = new List<Person>();
-            listOfPeopleFirstClass = new List<Person>();
+            ListOfPeopleEconomyClass = new List<Person>();
+            ListOfPeopleBusinessClass = new List<Person>();
+            ListOfPeopleFirstClass = new List<Person>();
         }
         public Plane(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
         {
@@ -92,9 +92,9 @@ namespace Project_Airline_info_MainAcademy
             this.MaxPlaceFirstClass = MaxPlaceFirstClass;
             this.MaxPlaceBusinessClass = MaxPlaceBusinessClass;
             this.MaxPlaceEcomomyClass = MaxPlaceEcomomyClass;
-            listOfPeopleEconomyClass = new List<Person>();
-            listOfPeopleBusinessClass = new List<Person>();
-            listOfPeopleFirstClass = new List<Person>();
+            ListOfPeopleEconomyClass = new List<Person>();
+            ListOfPeopleBusinessClass = new List<Person>();
+            ListOfPeopleFirstClass = new List<Person>();
         }
 
         // append person in class list 
@@ -102,7 +102,7 @@ namespace Project_Airline_info_MainAcademy
         {
             if(CountOfPassagersEconomy() < MaxPlaceEcomomyClass)
             {
-                listOfPeopleEconomyClass.Add(person);
+                ListOfPeopleEconomyClass.Add(person);
             }
             else
             {
@@ -113,7 +113,7 @@ namespace Project_Airline_info_MainAcademy
         {
             if (CountOfPassagersBusiness() < MaxPlaceBusinessClass)
             {
-                listOfPeopleBusinessClass.Add(person);
+                ListOfPeopleBusinessClass.Add(person);
             }
             else
             {
@@ -126,7 +126,7 @@ namespace Project_Airline_info_MainAcademy
 
             if (CountOfPassagersFirst() < MaxPlaceFirstClass)
             {
-                listOfPeopleFirstClass.Add(person);
+                ListOfPeopleFirstClass.Add(person);
             }
             else
             {
@@ -138,30 +138,30 @@ namespace Project_Airline_info_MainAcademy
         // remove person in class list 
         public void RemoveFromListEconomy(Person person)
         {
-            listOfPeopleEconomyClass.Remove(person);
+            ListOfPeopleEconomyClass.Remove(person);
         }
         public void RemoveFromListBusiness(Person person)
         {
-            listOfPeopleBusinessClass.Remove(person);
+            ListOfPeopleBusinessClass.Remove(person);
         }
         public void RemoveFromListFirst(Person person)
         {
-            listOfPeopleFirstClass.Remove(person);
+            ListOfPeopleFirstClass.Remove(person);
         }
 
 
         // Number of people in eveyone class
         public int CountOfPassagersEconomy() 
         {
-            return listOfPeopleEconomyClass.Count;
+            return ListOfPeopleEconomyClass.Count;
         }
         public int CountOfPassagersBusiness()
         {
-            return listOfPeopleBusinessClass.Count;
+            return ListOfPeopleBusinessClass.Count;
         }
         public int CountOfPassagersFirst()
         {
-            return listOfPeopleFirstClass.Count;
+            return ListOfPeopleFirstClass.Count;
         }
 
         // All info from list classes
@@ -230,28 +230,28 @@ namespace Project_Airline_info_MainAcademy
 
         void infoListEconomy()
         {
-            foreach (var item in listOfPeopleEconomyClass)
+            foreach (var PersonFormEconomyClass in ListOfPeopleEconomyClass)
             {
                 
-                Console.WriteLine(item);
+                Console.WriteLine(PersonFormEconomyClass);
                 Console.WriteLine("---------------------");
             }
         }
         void infoListBusiness()
         {
-            foreach (var item in listOfPeopleBusinessClass)
+            foreach (var PersonFormBusinessClass in ListOfPeopleBusinessClass)
             {
                 
-                Console.WriteLine(item);
+                Console.WriteLine(PersonFormBusinessClass);
                 Console.WriteLine("---------------------");
             }
         }
         void infoListFirst()
         {
-            foreach (var item in listOfPeopleFirstClass)
+            foreach (var PersonFormFirstClass in ListOfPeopleFirstClass)
             {
                 
-                Console.WriteLine(item);
+                Console.WriteLine(PersonFormFirstClass);
                 Console.WriteLine("---------------------");
             }
         }

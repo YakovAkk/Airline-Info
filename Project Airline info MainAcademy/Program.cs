@@ -9,11 +9,10 @@ namespace Project_Airline_info_MainAcademy
 {
     class Program
     {
-        static Admin admin = new Admin();
+        static Admin UserAdmin = new Admin();
         
         static void Main(string[] args)
         {
-           
 
             Console.WriteLine("Good afternoon , you are greetings by Yakov's aeroport company. Do you want to choose city with aeroport?");
             Console.WriteLine("1) Choose the city with aeroport");
@@ -22,20 +21,20 @@ namespace Project_Airline_info_MainAcademy
             switch (Initialization("Your choose : "))
             {
                 case 1:
-                {
+                
                     Console.Clear();
                     MenuCityWithAeroport();
 
                     break;
-                }
+                
                 case 2:
-                {
+                
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Good Bye! Have a nice day)");
                     Console.ReadKey();
                     break;
-                }
+                
                 default:
                 break;
             }
@@ -48,29 +47,29 @@ namespace Project_Airline_info_MainAcademy
                 Header();
                 var NumOfAeroport = Initialization("Your choose : ");
 
-                MenuOfAeroport(admin.FindTheAeroportWithIndex(NumOfAeroport));
+                MenuOfAeroport(UserAdmin.FindTheAeroportWithIndex(NumOfAeroport));
 
             }
         }
-        private static void MenuOfAeroport(Aeroport aeroport)
+        private static void MenuOfAeroport(Aeroport TempAeroport)
         {
             var FlagAero = true;
             while (FlagAero)
             {
-                HeaderMenuOfAeroport(aeroport);
-
+                HeaderMenuOfAeroport(TempAeroport);
+                var NumOfPlane = 0; // for contain number of plane
                 switch (Initialization("Your choose : "))
                 {
                     case 1:
-                    {
+                    
                         Console.Clear();
-                        aeroport.AllInfoAboutPlane();
-                        var NumOfPlane = Initialization("Choose The plane : ");
+                        TempAeroport.AllInfoAboutPlane();
+                        NumOfPlane = Initialization("Choose The plane : ");
 
-                        if (NumOfPlane < aeroport.CountOfPlane() && NumOfPlane > 0)
+                        if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
                         {
-                            var TempPlane = aeroport.FindThePlaneWithIndex(NumOfPlane);
-                            MenuForPlane(TempPlane, aeroport);
+                            var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
+                            MenuForPlane(TempPlane, TempAeroport);
                         }
                         else
                         {
@@ -78,16 +77,16 @@ namespace Project_Airline_info_MainAcademy
                         }
 
                         break;
-                    }
+                    
                     case 2:
-                    {
+                    
                         Console.Clear();
-                        aeroport.AllInfoAboutPlane();
-                        var NumOfPlane = Initialization("Choose The plane : ");
+                        TempAeroport.AllInfoAboutPlane();
+                        NumOfPlane = Initialization("Choose The plane : ");
 
-                        if (NumOfPlane < aeroport.CountOfPlane() && NumOfPlane > 0)
+                        if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
                         {
-                            var TempPlane = aeroport.FindThePlaneWithIndex(NumOfPlane);
+                            var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
 
                             if (TempPlane.GetStatusOfFly() == StatusOfFly.GateClosed)
                             {
@@ -97,10 +96,10 @@ namespace Project_Airline_info_MainAcademy
 
                                 var NumOfAeroport = Initialization("Your choose : ");
 
-                               
-                                admin.DepartAtNextAero(TempPlane, admin.FindTheAeroportWithIndex(NumOfAeroport));
-                                
-                                aeroport.RemovePlaneFromAeroport(TempPlane);
+
+                                UserAdmin.DepartAtNextAero(TempPlane, UserAdmin.FindTheAeroportWithIndex(NumOfAeroport));
+
+                                TempAeroport.RemovePlaneFromAeroport(TempPlane);
 
                             }
                             else
@@ -117,38 +116,38 @@ namespace Project_Airline_info_MainAcademy
                         }
 
                         break;
-                    }
+                    
                     case 3:
-                    {
+                    
                         Console.WriteLine("===============================");
-                        Console.WriteLine(aeroport.ToString());
+                        Console.WriteLine(TempAeroport.ToString());
                         Console.WriteLine("===============================");
                         Console.ReadKey();
                         break;
-                    }
+                    
                     case 4:
-                    {
+                    
                         Console.WriteLine("===============================");
-                        aeroport.AllInfoAboutPlane();
+                        TempAeroport.AllInfoAboutPlane();
                         Console.WriteLine("===============================");
 
                         Console.ReadKey();
                         break;
-                    }
+                    
                     case 5:
-                    {
+                    
                         Console.Clear();
-                        Timetable.PrintTimetableForAeroport(aeroport);
+                        Timetable.PrintTimetableForAeroport(TempAeroport);
                         Console.WriteLine("Enter something...");
                         Console.ReadKey();
 
                         break;
-                    }
+                    
                     case 6:
-                    {
+                    
                         FlagAero = false;
                         break;
-                    }
+                    
                     default:
                     break;
                 }
@@ -168,7 +167,7 @@ namespace Project_Airline_info_MainAcademy
                 switch (Initialization("Your choose : "))
                 {
                     case 1:
-                    {
+                    
                         Console.Clear();
 
                         var NumberOfPerson = 1;
@@ -182,9 +181,9 @@ namespace Project_Airline_info_MainAcademy
                         Console.Clear();
                         
                         break;
-                    }
+                    
                     case 2:
-                    {
+                    
                         Console.Clear();
                         Console.WriteLine("How many people do you want to sell tickets?");
                         var countOfCustomers = Initialization("Enter count : ");
@@ -247,17 +246,17 @@ namespace Project_Airline_info_MainAcademy
                             Console.ReadKey();
                         }
                         break;
-                    }
+                    
                     case 3:
-                    {
+                    
                         Console.Clear();
                         Timetable.PrintTimetableForPlane(TempPlane);
                         Console.WriteLine("Enter something...");
                         Console.ReadKey();
                         break;
-                    }
+                    
                     case 4: 
-                    {
+                    
                         Console.Clear();
                         TempPlane.AllInfoPassagers();
 
@@ -265,26 +264,26 @@ namespace Project_Airline_info_MainAcademy
                         Console.ReadKey();
 
                         break;
-                    }
+                    
                     case 5:
-                    {
+                    
                         FlagMenuOfPlane = false;
                         break;
-                    }
+                    
                     default:
-                    {
+                    
                         Console.WriteLine("Menu doesn't contain this topic");
                         break;
-                    }
+                    
 
                 }
             }
 
         }
-        private static void HeaderMenuOfAeroport(Aeroport aeroport)
+        private static void HeaderMenuOfAeroport(Aeroport TempAeroport)
         {
             Console.Clear();
-            Console.WriteLine(aeroport.ToString());
+            Console.WriteLine(TempAeroport.ToString());
             Console.WriteLine();
             Console.WriteLine("1) Go to menu of each plane");
             Console.WriteLine("2) Run a plane to next aeroport");
@@ -310,12 +309,12 @@ namespace Project_Airline_info_MainAcademy
             Console.WriteLine("5) Kharkiv airport");
             Console.WriteLine("6) Exit");
         }
-        private static int Initialization(string message = "")
+        private static int Initialization(string Message = "")
         {
             int valueUser;
             while (true)
             {
-                Console.Write(message);
+                Console.Write(Message);
 
                 try // ВЫНЕСТИ в ОТдельный метод
                 {

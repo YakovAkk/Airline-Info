@@ -12,7 +12,7 @@ namespace Project_Airline_info_MainAcademy
         static string[] ArrSecondName = new Parse().ParseJsonFile("Second Name.json");
         static string[] ArrNationality = new Parse().ParseJsonFile("Nationality.json");
 
-        static Random random = new Random();
+        static Random UsersRandom = new Random();
         string FirstName { get; }
         string SecondName { get; }
         string Nationality { get; }
@@ -52,25 +52,25 @@ namespace Project_Airline_info_MainAcademy
         }
         private string RandFirstName()
         {
-            return ArrFirstName[random.Next(0, ArrFirstName.Length)];
+            return ArrFirstName[UsersRandom.Next(0, ArrFirstName.Length)];
         }
         private string RandSecondName()
         {
-            return ArrSecondName[random.Next(0, ArrSecondName.Length)];
+            return ArrSecondName[UsersRandom.Next(0, ArrSecondName.Length)];
         }
         private string RandNationality()
         {
-            return ArrNationality[random.Next(0, ArrNationality.Length)];
+            return ArrNationality[UsersRandom.Next(0, ArrNationality.Length)];
         }
         public DateTime RandDateOfBirthday()
         {
             int range = 100;
-            return new DateTime().AddDays(random.Next(range)).AddHours(random.Next(0, 24)).AddMinutes(random.Next(0, 60)).AddSeconds(random.Next(0, 60));
+            return new DateTime().AddDays(UsersRandom.Next(range)).AddHours(UsersRandom.Next(0, 24)).AddMinutes(UsersRandom.Next(0, 60)).AddSeconds(UsersRandom.Next(0, 60));
         }
         private string RandSex()
         {
             string[] sex = new[] { "Male", "Female" };
-            return sex[random.Next(0, 2)];
+            return sex[UsersRandom.Next(0, 2)];
         }
     }
 }

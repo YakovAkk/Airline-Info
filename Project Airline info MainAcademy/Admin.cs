@@ -8,30 +8,30 @@ namespace Project_Airline_info_MainAcademy
 {
     class Admin
     {
-        public Timetable timetable { get; }
-        public readonly List<Aeroport> aeroports = new List<Aeroport>();
+        public Timetable Timetable { get; }
+        public readonly List<Aeroport> Aeroports = new List<Aeroport>();
         public readonly List<Plane> AllPlanes = new List<Plane>();
         public Admin()
         {
             AddAeroports();
             AddPlaneToList();
             AddPlaneToAeroport();
-            timetable = new Timetable(aeroports);
+            Timetable = new Timetable(Aeroports);
         }
         private void AddAeroports()
         { 
-            aeroports.Add(new Aeroport("Boryspil airport", 10));
-            aeroports.Add(new Aeroport("Lviv airport", 8));
-            aeroports.Add(new Aeroport("airport Kiev", 6));
-            aeroports.Add(new Aeroport("Odessa airport", 6));
-            aeroports.Add(new Aeroport("Kharkiv airport", 4));
+            Aeroports.Add(new Aeroport("Boryspil airport", 10));
+            Aeroports.Add(new Aeroport("Lviv airport", 8));
+            Aeroports.Add(new Aeroport("airport Kiev", 6));
+            Aeroports.Add(new Aeroport("Odessa airport", 6));
+            Aeroports.Add(new Aeroport("Kharkiv airport", 4));
         }
         private void AddPlaneToAeroport()
         {
             int counter = 0;
-            foreach (var aeroport in aeroports)
+            foreach (var aeroport in Aeroports)
             {
-                for (int i = 0; i < aeroport.countOfPlace/2; i++)
+                for (int i = 0; i < aeroport.CountOfPlace/2; i++)
                 {
                     if(counter < AllPlanes.Count)
                     {
@@ -69,23 +69,23 @@ namespace Project_Airline_info_MainAcademy
             
 
         }
-        public async void DepartAtNextAero(Plane TempPlane, Aeroport aeroport)
+        public async void DepartAtNextAero(Plane TempPlane, Aeroport Aeroport)
         {
             await Task.Run(() =>
             {
                 TempPlane.SetStatusOfFly(StatusOfFly.DepartedAt);
                 Console.Clear();
-                Console.WriteLine(TempPlane.ToString() + "Will arrive to " + aeroport.GetName() + "in 3 min 20 sec");
+                Console.WriteLine(TempPlane.ToString() + "Will arrive to " + Aeroport.GetName() + "in 3 min 20 sec");
                 Task.Delay(200000); // 3 min 20 sec
 
-                aeroport.AddPlaneToAeroport(TempPlane);
+                Aeroport.AddPlaneToAeroport(TempPlane);
                 TempPlane.SetStatusOfFly(StatusOfFly.Arrived);
             });
         }
 
         public Aeroport FindTheAeroportWithIndex(int index)
         {
-            return aeroports.ElementAt(index - 1);
+            return Aeroports.ElementAt(index - 1);
         }
     }
 }

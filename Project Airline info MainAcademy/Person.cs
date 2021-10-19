@@ -15,43 +15,43 @@ namespace Project_Airline_info_MainAcademy
     }
     class Person
     {
-        Passport passport { get; }  // contain all data for this person like
+        Passport PersonsPassport { get; }  // contain all data for this person like
                                     // first name , second name , Nationality, NumOfPassport,DateOfBirthday and Sex
         ClassFromPlane ClassOfplane { get; set; } 
-        Purse purse { get; set; }
+        Purse PersonsPurse { get; set; }
 
         // construcors
         public Person()
         {
-            passport = null;
+            PersonsPassport = null;
             ClassOfplane = ClassFromPlane.None;
-            purse = null;
+            PersonsPurse = null;
         }
         public Person(Passport passport, Purse purse, ClassFromPlane classFromPlane = ClassFromPlane.None)
         {
-            this.passport = passport;
-            this.ClassOfplane = classFromPlane;
-            this.purse = purse;
+            PersonsPassport = passport;
+            ClassOfplane = classFromPlane;
+            PersonsPurse = purse;
         }
         public override string ToString()
         {
-            return passport.ToString() + "\n" + $"i will fly {ClassOfplane}\nI have {purse.ToString()}";
+            return PersonsPassport.ToString() + "\n" + $"i will fly {ClassOfplane}\nI have {PersonsPurse.ToString()}";
         }
         public void ToBuy(Purse OtherPurse)
         {
-            if (purse.GetBalance() > OtherPurse.GetBalance())
+            if (PersonsPurse.GetBalance() > OtherPurse.GetBalance())
             {
-                purse = purse - OtherPurse;
+                PersonsPurse = PersonsPurse - OtherPurse;
             } 
         }
-        public void SetClassInPlane(ClassFromPlane classFromPlane)
+        public void SetClassInPlane(ClassFromPlane ClassFromPlane)
         {
-            ClassOfplane = classFromPlane;
+            ClassOfplane = ClassFromPlane;
         }
 
         public Purse GetPurse()
         {
-            return purse;
+            return PersonsPurse;
         }
 
     }
