@@ -92,7 +92,7 @@ namespace Project_Airline_info_MainAcademy
                          break;
 
                     case 6:
-                    
+                        Console.Clear();
                         FlagAero = false;
                         break;
                     
@@ -108,7 +108,7 @@ namespace Project_Airline_info_MainAcademy
             TempAeroport.AllInfoAboutPlane();
             NumOfPlane = Initialization("Choose The plane : ");
 
-            if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
+            if (NumOfPlane <= TempAeroport.CountOfPlane() && NumOfPlane > 0)
             {
                 var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
                 MenuForPlane(TempPlane, TempAeroport);
@@ -317,7 +317,7 @@ namespace Project_Airline_info_MainAcademy
                         person.ToBuy(TempPlane.PriceFirst.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.First);
 
-                        TempPlane.AddToListFirst(person);
+                        TempPlane.AddToList(person);
 
                         Console.WriteLine("================================");
                         Console.WriteLine($"\n{person.ToString()} was append to plane into First class");
@@ -327,7 +327,7 @@ namespace Project_Airline_info_MainAcademy
                         person.ToBuy(TempPlane.PriceBusiness.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.Business);
 
-                        TempPlane.AddToListBusiness(person);
+                        TempPlane.AddToList(person);
 
                         Console.WriteLine("================================");
                         Console.WriteLine($"\n{person.ToString()} was append to plane into Business class");
@@ -337,17 +337,15 @@ namespace Project_Airline_info_MainAcademy
                         person.ToBuy(TempPlane.PriceEconomy.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.Economy);
 
-                        TempPlane.AddToListEconomy(person);
+                        TempPlane.AddToList(person);
 
                         Console.WriteLine("================================");
                         Console.WriteLine($"\n{person.ToString()} was append to plane into Economy class");
                     }
                     countOfCustomers--;
                 }
-                aeroport.RemoveFromListWithPeople(TempPlane.ListOfPeopleFirstClass);
-                aeroport.RemoveFromListWithPeople(TempPlane.ListOfPeopleBusinessClass);
-                aeroport.RemoveFromListWithPeople(TempPlane.ListOfPeopleEconomyClass);
-
+                aeroport.RemoveFromListWithPeople(TempPlane.ListOfPeople);
+               
                 Console.Write("Enter something...");
                 Console.ReadKey();
                 TempPlane.SetStatusOfFly(StatusOfFly.GateClosed);

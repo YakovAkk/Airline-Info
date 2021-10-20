@@ -19,6 +19,11 @@ namespace Project_Airline_info_MainAcademy
         public int MaxPlaceBusinessClass { get; private set; }
         public int MaxPlaceEcomomyClass { get; private set; }
 
+        // Count of passagers
+
+        public int CountPassagersInsideFirstClass { get; private set; }
+        public int CountPassagersInsideBusinessClass { get; private set; }
+        public int CountPassagersInsideEconomyClass { get; private set; }
 
         // price for one place in every class
         public TicketOnPlane PriceFirst { get; private set; }
@@ -27,9 +32,7 @@ namespace Project_Airline_info_MainAcademy
 
 
         // lists with person in everyone class
-        public List<Person> ListOfPeopleEconomyClass { get; private set; }
-        public List<Person> ListOfPeopleBusinessClass { get; private set; }
-        public List<Person> ListOfPeopleFirstClass { get; private set; }
+        public List<Person> ListOfPeople { get; private set; }
         //constructor
 
         public Plane(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
@@ -44,82 +47,48 @@ namespace Project_Airline_info_MainAcademy
             this.MaxPlaceFirstClass = MaxPlaceFirstClass;
             this.MaxPlaceBusinessClass = MaxPlaceBusinessClass;
             this.MaxPlaceEcomomyClass = MaxPlaceEcomomyClass;
-            ListOfPeopleEconomyClass = new List<Person>();
-            ListOfPeopleBusinessClass = new List<Person>();
-            ListOfPeopleFirstClass = new List<Person>();
+            ListOfPeople = new List<Person>();
+          
         }
 
         // append person in class list 
-        public void AddToListEconomy(Person person)
+        public void AddToList(Person person)
         {
-            if(CountOfPassagersEconomy() < MaxPlaceEcomomyClass)
+            if(CountPassagersInsideEconomyClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
             {
-                ListOfPeopleEconomyClass.Add(person);
+                ListOfPeople.Add(person);
+                CountPassagersInsideEconomyClass++;
             }
-            else
-            {
-                Console.WriteLine("Econom class is full");
-            }
-        }
-        public void AddToListBusiness(Person person)
-        {
-            if (CountOfPassagersBusiness() < MaxPlaceBusinessClass)
-            {
-                ListOfPeopleBusinessClass.Add(person);
-            }
-            else
-            {
-                Console.WriteLine("Business class is full");
-            }
-            
-        }
-        public void AddToListFirst(Person person)
-        {
+           
 
-            if (CountOfPassagersFirst() < MaxPlaceFirstClass)
+            if (CountPassagersInsideBusinessClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Business)
             {
-                ListOfPeopleFirstClass.Add(person);
+                ListOfPeople.Add(person);
+                CountPassagersInsideBusinessClass++;
             }
-            else
+            
+
+            if (CountPassagersInsideFirstClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.First)
             {
-                Console.WriteLine("First class is full");
+                ListOfPeople.Add(person);
+                CountPassagersInsideFirstClass++;
             }
             
         }
+
 
         // remove person in class list 
-        public void RemoveFromListEconomy(Person person)
+        public void RemoveFromList(Person person)
         {
-            ListOfPeopleEconomyClass.Remove(person);
+            ListOfPeople.Remove(person);
         }
-        public void RemoveFromListBusiness(Person person)
-        {
-            ListOfPeopleBusinessClass.Remove(person);
-        }
-        public void RemoveFromListFirst(Person person)
-        {
-            ListOfPeopleFirstClass.Remove(person);
-        }
-
 
         // Number of people in eveyone class
-        public int CountOfPassagersEconomy() 
-        {
-            return ListOfPeopleEconomyClass.Count;
-        }
-        public int CountOfPassagersBusiness()
-        {
-            return ListOfPeopleBusinessClass.Count;
-        }
-        public int CountOfPassagersFirst()
-        {
-            return ListOfPeopleFirstClass.Count;
-        }
 
         // All info from list classes
         public void AllInfoPassagers()
         {
-            if(CountOfPassagersEconomy() > 0)
+            if(CountPassagersInsideEconomyClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Economy Class : ");
@@ -137,7 +106,7 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            if(CountOfPassagersBusiness() > 0)
+            if(CountPassagersInsideBusinessClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Business Class : ");
@@ -155,7 +124,7 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            if(CountOfPassagersFirst() > 0)
+            if(CountPassagersInsideFirstClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("First Class : ");
@@ -180,31 +149,40 @@ namespace Project_Airline_info_MainAcademy
             return $"Plane {NameOfPlane} with Number {NumOfPlane}  Status {StatusOfFly}";
         }
 
-        void infoListEconomy()
+        private void infoListEconomy()
         {
-            foreach (var PersonFormEconomyClass in ListOfPeopleEconomyClass)
+            foreach (var PersonFormEconomyClass in ListOfPeople)
             {
+                if(PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
+                {
+                    Console.WriteLine(PersonFormEconomyClass);
+                    Console.WriteLine("---------------------");
+                }
                 
-                Console.WriteLine(PersonFormEconomyClass);
-                Console.WriteLine("---------------------");
             }
         }
-        void infoListBusiness()
+        private void infoListBusiness()
         {
-            foreach (var PersonFormBusinessClass in ListOfPeopleBusinessClass)
+            foreach (var PersonFormBusinessClass in ListOfPeople)
             {
+                if(PersonFormBusinessClass.PersonsTicket.ClassTicket == ClassFromPlane.Business)
+                {
+                    Console.WriteLine(PersonFormBusinessClass);
+                    Console.WriteLine("---------------------");
+                }
                 
-                Console.WriteLine(PersonFormBusinessClass);
-                Console.WriteLine("---------------------");
             }
         }
-        void infoListFirst()
+        private void infoListFirst()
         {
-            foreach (var PersonFormFirstClass in ListOfPeopleFirstClass)
+            foreach (var PersonFormFirstClass in ListOfPeople)
             {
+                if(PersonFormFirstClass.PersonsTicket.ClassTicket == ClassFromPlane.First)
+                {
+                    Console.WriteLine(PersonFormFirstClass);
+                    Console.WriteLine("---------------------");
+                }
                 
-                Console.WriteLine(PersonFormFirstClass);
-                Console.WriteLine("---------------------");
             }
         }
         public void SetStatusOfFly(StatusOfFly StatusOfFly)
@@ -214,7 +192,7 @@ namespace Project_Airline_info_MainAcademy
         public int GetFreePlaces()
         {
             return MaxPlaceBusinessClass + MaxPlaceEcomomyClass + MaxPlaceFirstClass -
-                CountOfPassagersFirst() - CountOfPassagersEconomy() - CountOfPassagersBusiness();
+                CountPassagersInsideEconomyClass - CountPassagersInsideBusinessClass - CountPassagersInsideFirstClass;
         }
     }
 }

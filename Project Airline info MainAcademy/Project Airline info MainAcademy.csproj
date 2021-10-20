@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Aeroport.cs" />
+    <Compile Include="CurrencyType.cs" />
     <Compile Include="Parse.cs" />
     <Compile Include="Passport.cs" />
     <Compile Include="Person.cs" />
