@@ -6,36 +6,25 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    enum ClassFromPlane
-    {
-        None = 0,
-        Economy,
-        Business,
-        First
-    }
+    
     class Person
     {
-        Passport PersonsPassport { get; }  // contain all data for this person like
+        public Passport PersonsPassport { get; private set; }  // contain all data for this person like
                                     // first name , second name , Nationality, NumOfPassport,DateOfBirthday and Sex
-        ClassFromPlane ClassOfplane { get; set; } 
-        Purse PersonsPurse { get; set; }
+        public TicketOnPlane PersonsTicket { get;private set; } // Class which the person will fly to new city
+        public Purse PersonsPurse { get;private set; } // his/her money
 
         // construcors
-        public Person()
-        {
-            PersonsPassport = null;
-            ClassOfplane = ClassFromPlane.None;
-            PersonsPurse = null;
-        }
-        public Person(Passport passport, Purse purse, ClassFromPlane classFromPlane = ClassFromPlane.None)
+
+        public Person(Passport passport, Purse purse, TicketOnPlane ticket)
         {
             PersonsPassport = passport;
-            ClassOfplane = classFromPlane;
+            PersonsTicket = ticket;
             PersonsPurse = purse;
         }
         public override string ToString()
         {
-            return PersonsPassport.ToString() + "\n" + $"i will fly {ClassOfplane}\nI have {PersonsPurse.ToString()}";
+            return PersonsPassport.ToString() + "\n" + $"i will fly {PersonsTicket.ClassTicket}\nI have {PersonsPurse.ToString()}";
         }
         public void ToBuy(Purse OtherPurse)
         {
@@ -43,15 +32,6 @@ namespace Project_Airline_info_MainAcademy
             {
                 PersonsPurse = PersonsPurse - OtherPurse;
             } 
-        }
-        public void SetClassInPlane(ClassFromPlane ClassFromPlane)
-        {
-            ClassOfplane = ClassFromPlane;
-        }
-
-        public Purse GetPurse()
-        {
-            return PersonsPurse;
         }
 
     }

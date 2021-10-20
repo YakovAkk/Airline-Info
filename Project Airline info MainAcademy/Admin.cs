@@ -8,11 +8,15 @@ namespace Project_Airline_info_MainAcademy
 {
     class Admin
     {
-        public Timetable Timetable { get; }
-        public readonly List<Aeroport> Aeroports = new List<Aeroport>();
-        public readonly List<Plane> AllPlanes = new List<Plane>();
+        public Timetable Timetable { get; private set; }
+        public List<Aeroport> Aeroports { get; private set; }
+        public List<Plane> AllPlanes { get; private set; }
+
+        // constructor
         public Admin()
         {
+            Aeroports = new List<Aeroport>();
+            AllPlanes = new List<Plane>();
             AddAeroports();
             AddPlaneToList();
             AddPlaneToAeroport();
@@ -69,13 +73,13 @@ namespace Project_Airline_info_MainAcademy
             
 
         }
-        public async void DepartAtNextAero(Plane TempPlane, Aeroport Aeroport)
+        public void DepartAtNextAero(Plane TempPlane, Aeroport Aeroport)
         {
-            await Task.Run(() =>
+            Task.Run(() =>
             {
                 TempPlane.SetStatusOfFly(StatusOfFly.DepartedAt);
                 Console.Clear();
-                Console.WriteLine(TempPlane.ToString() + "Will arrive to " + Aeroport.GetName() + "in 3 min 20 sec");
+                Console.WriteLine(TempPlane.ToString() + "Will arrive to " + Aeroport.NameOfAeroport + "in 3 min 20 sec");
                 Task.Delay(200000); // 3 min 20 sec
 
                 Aeroport.AddPlaneToAeroport(TempPlane);

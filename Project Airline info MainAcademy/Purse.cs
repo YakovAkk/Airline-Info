@@ -15,14 +15,14 @@ namespace Project_Airline_info_MainAcademy
     }
     class Purse
     {
-        static Random UserRandom = new Random(); // Amount in Person's pusre is randomed by the variable 
-        int RandAmountMax = 10000;
-        int RandAmountMin = 2000;
-        CurrencyType TypeOfMoney { get; set; }
-        double Amount { get; set; }
+        private static Random UserRandom = new Random(); // Amount in Person's pusre is randomed by the variable 
+        private const int RandAmountMax = 10000;
+        private const int RandAmountMin = 2000;
+        public CurrencyType TypeOfMoney { get; private set; }
+        public double Amount { get;private set; }
 
-        static double CourseToUSD { get; set; }
-        static double CourseToEU { get; set; }
+        public static double CourseToUSD { get; private set; }
+        public static double CourseToEU { get; private set; }
 
 
         // Constructors
@@ -138,10 +138,6 @@ namespace Project_Airline_info_MainAcademy
                 CourseToEU = value;
             }
         }
-        public string GetCurrencyType()
-        {
-            return TypeOfMoney.ToString();
-        }
         public override string ToString()
         {
             return $"Type of money is {CurrencyType.UAH}. " + $"Balance is {this.Amount}";
@@ -155,15 +151,6 @@ namespace Project_Airline_info_MainAcademy
         {
             CourseToUSD = value;
         }
-        public double getCourseEU()
-        {
-            return CourseToEU;
-        }
-
-        public double getCourseUSD()
-        {
-            return CourseToUSD;
-        }
         public static Purse operator +(Purse one, Purse two)
         {
             return new Purse(CurrencyType.UAH, one.Amount + two.Amount);
@@ -172,7 +159,6 @@ namespace Project_Airline_info_MainAcademy
         {
             return new Purse(CurrencyType.UAH, one.Amount - two.Amount);
         }
-
         public static bool operator < (Purse one, Purse two)
         {
             if(one.GetBalance() < two.GetBalance())
@@ -184,7 +170,6 @@ namespace Project_Airline_info_MainAcademy
                 return false;
             }
         }
-
         public static bool operator > (Purse one, Purse two)
         {
             if (one.GetBalance() < two.GetBalance())

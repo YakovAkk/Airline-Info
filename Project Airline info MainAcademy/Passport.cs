@@ -8,18 +8,18 @@ namespace Project_Airline_info_MainAcademy
 {
     class Passport
     {
-        static string[] ArrFirstName = new Parse().ParseJsonFile("First Name.json");
-        static string[] ArrSecondName = new Parse().ParseJsonFile("Second Name.json");
-        static string[] ArrNationality = new Parse().ParseJsonFile("Nationality.json");
+        private static string[] ArrFirstName = new Parse().ParseJsonFile("First Name.json");
+        private static string[] ArrSecondName = new Parse().ParseJsonFile("Second Name.json");
+        private static string[] ArrNationality = new Parse().ParseJsonFile("Nationality.json");
 
-        static Random UsersRandom = new Random();
-        string FirstName { get; }
-        string SecondName { get; }
-        string Nationality { get; }
-        static int CountOfPassport { get; set; }
-        int NumOfPassport { get; set; }
-        DateTime DateOfBirthday { get; }
-        string Sex { get; }
+        private static Random UsersRandom = new Random();
+        public string FirstName { get; private set; }
+        public string SecondName { get; private set; }
+        public string Nationality { get; private set; }
+        private static int CountOfPassport { get; set; }
+        public int NumOfPassport { get;private set; }
+        public DateTime DateOfBirthday { get; private set; }
+        public string Sex { get; private set; }
         
         public Passport()
         {
@@ -32,19 +32,6 @@ namespace Project_Airline_info_MainAcademy
             NumOfPassport = CountOfPassport;
             CountOfPassport++;
         }
-        public Passport(string FirstName, string SecondName, string Nationality,
-            DateTime DateOfBirthday, string Sex)
-        {
-            this.FirstName = FirstName;
-            this.SecondName = SecondName;
-            this.Nationality = Nationality;
-            this.DateOfBirthday = DateOfBirthday;
-            this.Sex = Sex;
-
-            NumOfPassport = CountOfPassport;
-            CountOfPassport++;
-        }
-
         public override string ToString()
         {
             return $"My name is {SecondName} {FirstName}  , i am {Sex} {Nationality}." +

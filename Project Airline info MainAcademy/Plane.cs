@@ -6,86 +6,38 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    enum StatusOfFly
-    {
-        Unknown = 0,
-        CheckIn,
-        GateClosed,
-        Arrived,
-        DepartedAt,
-        Canceled,
-        ExpectedAt,
-        Delayed,
-        InFlight,
-    }
+    
     class Plane // every palne division on 3 part - economy class , business class , and first class
     {
-        StatusOfFly StatusOfFly = new StatusOfFly();
-        static int CountOfPlane = 0;
-        int NumOfPlane = 0;
+        public StatusOfFly StatusOfFly { get; private set; }
+        private static int CountOfPlane = 0;
+        private int NumOfPlane = 0;
 
-        string NameOfPlane { get; set; }
+        public string NameOfPlane { get;private set; }
         // count of place in every class
-        int MaxPlaceFirstClass { get; set; }
-        int MaxPlaceBusinessClass { get; set; }
-        int MaxPlaceEcomomyClass { get; set; }
+        public int MaxPlaceFirstClass { get; private set; }
+        public int MaxPlaceBusinessClass { get; private set; }
+        public int MaxPlaceEcomomyClass { get; private set; }
 
 
         // price for one place in every class
-        Purse PriceFirst = new Purse(CurrencyType.USD, 200);
+        public TicketOnPlane PriceFirst { get; private set; }
+        public TicketOnPlane PriceBusiness { get; private set; }
+        public TicketOnPlane PriceEconomy { get; private set; }
 
-        Purse PriceBusiness = new Purse(CurrencyType.USD, 100);
-
-        Purse PriceEconomy = new Purse(CurrencyType.USD, 30);
-
-
-        // Get price for classes
-        public Purse GetPriceFirstClass()
-        {
-            return PriceFirst;
-        }
-        public Purse GetPriceBusinessClass()
-        {
-            return PriceBusiness;
-        }
-        public Purse GetPriceEconomyClass()
-        {
-            return PriceEconomy;
-        }
 
         // lists with person in everyone class
-        List<Person> ListOfPeopleEconomyClass;
-        List<Person> ListOfPeopleBusinessClass;
-        List<Person> ListOfPeopleFirstClass;
-
-        // Get list with people in each class
-        public List<Person> GetListWithPeopleInPlaneFirstClass()
-        {
-            return ListOfPeopleFirstClass;
-        }
-        public List<Person> GetListWithPeopleInPlaneBusinessClass()
-        {
-            return ListOfPeopleBusinessClass;
-        }
-        public List<Person> GetListWithPeopleInPlaneEconomyClass()
-        {
-            return ListOfPeopleEconomyClass;
-        }
-
+        public List<Person> ListOfPeopleEconomyClass { get; private set; }
+        public List<Person> ListOfPeopleBusinessClass { get; private set; }
+        public List<Person> ListOfPeopleFirstClass { get; private set; }
         //constructor
-        public Plane()
-        {
-            StatusOfFly = StatusOfFly.Unknown;
-            NumOfPlane = ++CountOfPlane;
-            MaxPlaceFirstClass = 0;
-            MaxPlaceBusinessClass = 0;
-            MaxPlaceEcomomyClass = 0;
-            ListOfPeopleEconomyClass = new List<Person>();
-            ListOfPeopleBusinessClass = new List<Person>();
-            ListOfPeopleFirstClass = new List<Person>();
-        }
+
         public Plane(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
         {
+            PriceFirst = new TicketOnPlane(ClassFromPlane.First,new Purse(CurrencyType.USD, 200));
+            PriceBusiness = new TicketOnPlane(ClassFromPlane.Business, new Purse(CurrencyType.USD, 100));
+            PriceEconomy = new TicketOnPlane(ClassFromPlane.Economy, new Purse(CurrencyType.USD, 30));
+
             StatusOfFly = StatusOfFly.CheckIn;
             this.NameOfPlane = NameOfPlane;
             NumOfPlane = ++CountOfPlane;
@@ -258,18 +210,7 @@ namespace Project_Airline_info_MainAcademy
         public void SetStatusOfFly(StatusOfFly StatusOfFly)
         {
             this.StatusOfFly = StatusOfFly;
-        }
-
-        public StatusOfFly GetStatusOfFly()
-        {
-            return StatusOfFly;
-        }
-
-        public string GetName()
-        {
-            return NameOfPlane;
-        }
-        
+        }    
         public int GetFreePlaces()
         {
             return MaxPlaceBusinessClass + MaxPlaceEcomomyClass + MaxPlaceFirstClass -

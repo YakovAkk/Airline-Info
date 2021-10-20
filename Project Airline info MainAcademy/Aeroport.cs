@@ -9,15 +9,55 @@ namespace Project_Airline_info_MainAcademy
     class Aeroport
     {
 
-        static Random UsersRandom = new Random();
-        int CountOfPeopleInArroport { get; set; }
-        int MinPeople = 200;
-        int MaxPeople = 300;
-        string NameOfAeroport { get; }
-        public int CountOfPlace { get; }
-        List<Plane> PlaceForPlane = new List<Plane>();
-        List<Person> PeopleInAeroport = new List<Person>();
-       
+        private static Random UsersRandom = new Random();
+        public int CountOfPeopleInArroport { get;private set; }
+
+
+        private const int MinPeople = 200;
+        private const int MaxPeople = 300;
+
+
+        public string NameOfAeroport { get; private set; }
+        public int CountOfPlace { get; private set; }
+        public List<Plane> PlaceForPlane { get; private set; }
+        public List<Person> PeopleInAeroport { get; private set; }
+
+        //constructor
+
+
+        public Aeroport(string NameOfAeroport, int countOfPlace)
+        {
+            PlaceForPlane = new List<Plane>();
+            PeopleInAeroport = new List<Person>();
+            CountOfPeopleInArroport = UsersRandom.Next(MinPeople, MaxPeople);
+            this.NameOfAeroport = NameOfAeroport;
+            this.CountOfPlace = countOfPlace;
+            PeopleInAeroport = GetSomePeople();
+
+        }
+
+
+        // methoods List people
+        public List<Person> GetListWithPeopleInAeroport()
+        {
+            return PeopleInAeroport;
+        }
+        private List<Person> GetSomePeople()
+        {
+            List<Person> People = new List<Person>();
+
+            for (int i = 0; i < CountOfPeopleInArroport; i++)
+            {
+                People.Add(new Person(new Passport(), new Purse(),new TicketOnPlane()));
+            }
+
+            return People;
+        }
+        public List<Plane> GetPlanes()
+        {
+            return PlaceForPlane;
+        }
+
         public void RemoveFromListWithPeople(List<Person> people)
         {
             foreach (var person in people)
@@ -25,28 +65,19 @@ namespace Project_Airline_info_MainAcademy
                 PeopleInAeroport.Remove(person);
             }
         }
-        public List<Person> GetListWithPeopleInAeroport()
-        {
-            return PeopleInAeroport;
-        }
+        
         public int GetCountOfLitsWithPeopleInAeroport()
         {
             return PeopleInAeroport.Count();
         }
-        public Aeroport(string NameOfAeroport, int countOfPlace)
-        {
-            CountOfPeopleInArroport = UsersRandom.Next(MinPeople, MaxPeople);
-            this.NameOfAeroport = NameOfAeroport; 
-            this.CountOfPlace = countOfPlace;
-            PeopleInAeroport = GetSomePeople();
-
-        }
+        
         public Plane FindThePlaneWithIndex(int index)
         {
             return PlaceForPlane.ElementAt(index - 1);
         }
 
-        
+
+        // methoods Listvwith plane
         public void AddPlaneToAeroport(Plane plane)
         {
             if(CountOfPlane() < CountOfPlace)
@@ -96,27 +127,8 @@ namespace Project_Airline_info_MainAcademy
         {
             return $"Name {NameOfAeroport} \nIn the aerodrome {CountOfPlace} places \nOccupied places {CountOfPlane()} \nFree places {CountOfPlace - CountOfPlane()}";
         }
-
-        public string GetName()
-        {
-            return NameOfAeroport;
-        }
-        private List<Person> GetSomePeople()
-        {
-            List<Person> People = new List<Person>();
-
-            for (int i = 0; i < CountOfPeopleInArroport; i++)
-            {
-                People.Add(new Person(new Passport(), new Purse()));
-            }
-
-            return People;
-        }
         
-        public List<Plane> GetPlanes()
-        {
-            return PlaceForPlane;
-        }
+
         
     }
 }

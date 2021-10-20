@@ -11,14 +11,14 @@ namespace Project_Airline_info_MainAcademy
         public static readonly List<Timetable> Timetables = new List<Timetable>();
 
         static int CountOFRaces = 0;
-        int NumOfRace { get; set; }
-        string StartPoint { get; set; }
-        string EndPoint { get; set; }
-        string NameOfPlane { get; set;  }
-        int CountOfFreePlaces { get; set; }
+        public int NumOfRace { get; private set; }
+        public string StartPoint { get; private set; }
+        public string EndPoint { get; private set; }
+        public string NameOfPlane { get; private set;  }
+        public int CountOfFreePlaces { get; private set; }
 
-        DateTime StartTimeOfDeparture = new DateTime();
-        DateTime EndTimeOfDeparture = new DateTime();
+        public DateTime StartTimeOfDeparture { get; private set; }
+        public DateTime EndTimeOfDeparture { get; private set; }
 
         public Timetable(List<Aeroport> TempAeroports) // for schedule management
         {
@@ -42,24 +42,11 @@ namespace Project_Airline_info_MainAcademy
                 $" \nFree Place : {CountOfFreePlaces}";
         }
 
-        public string GetStartPoint()
-        {
-            return StartPoint;
-        }
-        public string GetEndPoint()
-        {
-            return EndPoint;
-        }
-        public string GetNameOfPlane()
-        {
-            return NameOfPlane;
-        }
-
         public static void PrintTimetableForAeroport(Aeroport TempAeroports)
         {
             foreach (var Timetable in Timetables)
             {
-                if (Timetable.GetStartPoint() == TempAeroports.GetName() || Timetable.GetEndPoint() == TempAeroports.GetName())
+                if (Timetable.StartPoint == TempAeroports.NameOfAeroport || Timetable.EndPoint == TempAeroports.NameOfAeroport)
                 {
                     Console.WriteLine(Timetable.ToString());
                     Console.WriteLine("================================================");
@@ -70,7 +57,7 @@ namespace Project_Airline_info_MainAcademy
         {
             foreach (var Timetable in Timetables)
             {
-                if (Timetable.GetNameOfPlane() == TempPlane.GetName())
+                if (Timetable.NameOfPlane == TempPlane.NameOfPlane)
                 {
                     Console.WriteLine(Timetable.ToString());
                     Console.WriteLine("================================================");
@@ -83,7 +70,7 @@ namespace Project_Airline_info_MainAcademy
             {
                 foreach (var Aeroport2 in Tempaeroports)
                 {
-                    if (Aeroport1.GetName() == Aeroport2.GetName())
+                    if (Aeroport1.NameOfAeroport == Aeroport2.NameOfAeroport)
                     {
                         break;
                     }
@@ -91,7 +78,7 @@ namespace Project_Airline_info_MainAcademy
                     {
                         foreach (var item in Aeroport2.GetPlanes())
                         {
-                            Timetables.Add(new Timetable(item.GetName(), Aeroport1.GetName(), new DateTime().Date.AddDays(1), Aeroport2.GetName(),
+                            Timetables.Add(new Timetable(item.NameOfPlane, Aeroport1.NameOfAeroport, new DateTime().Date.AddDays(1), Aeroport2.NameOfAeroport,
                             new DateTime().Date.AddDays(2), item.GetFreePlaces()));
                         }
                     }
