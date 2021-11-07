@@ -8,23 +8,16 @@ namespace Project_Airline_info_MainAcademy
 {
     class Aeroport
     {
-
         private static Random UsersRandom = new Random();
         public int CountOfPeopleInArroport { get;private set; }
-
-
         private const int MinPeople = 200;
         private const int MaxPeople = 300;
-
-
         public string NameOfAeroport { get; private set; }
         public int CountOfPlace { get; private set; }
         public List<Plane> PlaceForPlane { get; private set; }
         public List<Person> PeopleInAeroport { get; private set; }
 
         //constructor
-
-
         public Aeroport(string NameOfAeroport, int countOfPlace)
         {
             PlaceForPlane = new List<Plane>();
@@ -35,8 +28,6 @@ namespace Project_Airline_info_MainAcademy
             PeopleInAeroport = GetSomePeople();
 
         }
-
-
         // methoods List people
         public List<Person> GetListWithPeopleInAeroport()
         {
@@ -57,7 +48,6 @@ namespace Project_Airline_info_MainAcademy
         {
             return PlaceForPlane;
         }
-
         public void RemoveFromListWithPeople(List<Person> people)
         {
             foreach (var person in people)
@@ -65,17 +55,14 @@ namespace Project_Airline_info_MainAcademy
                 PeopleInAeroport.Remove(person);
             }
         }
-        
         public int GetCountOfLitsWithPeopleInAeroport()
         {
             return PeopleInAeroport.Count();
         }
-        
         public Plane FindThePlaneWithIndex(int index)
         {
             return PlaceForPlane.ElementAt(index - 1);
         }
-
 
         // methoods Listvwith plane
         public void AddPlaneToAeroport(Plane plane)
@@ -127,8 +114,6 @@ namespace Project_Airline_info_MainAcademy
         {
             return $"Name {NameOfAeroport} \nIn the aerodrome {CountOfPlace} places \nOccupied places {CountOfPlane()} \nFree places {CountOfPlace - CountOfPlane()}";
         }
-        
-
         
     }
 }

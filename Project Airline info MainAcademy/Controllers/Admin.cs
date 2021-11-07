@@ -86,7 +86,6 @@ namespace Project_Airline_info_MainAcademy
                 TempPlane.SetStatusOfFly(StatusOfFly.Arrived);
             });
         }
-
         public Aeroport FindTheAeroportWithIndex(int index)
         {
             return Aeroports.ElementAt(index - 1);
