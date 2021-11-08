@@ -39,9 +39,8 @@ namespace Project_Airline_info_MainAcademy
             }
         }
 
-
         // Menu 
-        private  void MenuCityWithAeroport()
+        private void MenuCityWithAeroport()
         {
             var FlagMain = true;
             while (FlagMain)
