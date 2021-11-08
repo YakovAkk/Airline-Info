@@ -62,12 +62,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\Admin.cs" />
+    <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Models\Aeroport.cs" />
     <Compile Include="Models\CurrencyType.cs" />
     <Compile Include="Models\Parse.cs" />
     <Compile Include="Models\Passport.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Plane.cs" />
+    <Compile Include="Views\ViewConsole.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Purse.cs" />

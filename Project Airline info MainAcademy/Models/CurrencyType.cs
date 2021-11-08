@@ -13,4 +13,5 @@ namespace Project_Airline_info_MainAcademy
         USD,
         EU
     }
+
 }
