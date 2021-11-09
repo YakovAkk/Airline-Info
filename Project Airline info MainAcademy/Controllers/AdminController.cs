@@ -11,7 +11,7 @@ namespace Project_Airline_info_MainAcademy
         public TimetableModel Timetable { get; private set; }
         public List<AeroportModel> Aeroports { get; private set; }
         public List<PlaneModel> AllPlanes { get; private set; }
-
+        ViewConsole MyViewConsole = new ViewConsole();
         // constructor
         public AdminController()
         {
@@ -73,7 +73,36 @@ namespace Project_Airline_info_MainAcademy
             
 
         }
-        public void DepartAtNextAero(PlaneModel TempPlane, AeroportModel Aeroport)
+
+        public void DepartDepartThePlaneToNextAeroport(int NumOfPlane, AeroportModel TempAeroport)
+        {
+            if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
+            {
+                var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
+
+                if (TempPlane.StatusOfFly == StatusOfFlyModel.GateClosed)
+                {
+                    MyViewConsole.ShowArrivedOfPlane();
+
+                    var NumOfAeroport = Initialization("Your choose : ");
+
+
+                    DepartThePlane(TempPlane, FindTheAeroportWithIndex(NumOfAeroport));
+
+                    TempAeroport.RemovePlaneFromAeroport(TempPlane);
+
+                }
+                else
+                {
+                   MyViewConsole.ShowErrorOfArrived();
+                }
+            }
+            else
+            {
+                MyViewConsole.ErrorOfPlane();
+            }
+        }
+        private void DepartThePlane(PlaneModel TempPlane, AeroportModel Aeroport)
         {
             Task.Run(() =>
             {
@@ -89,6 +118,34 @@ namespace Project_Airline_info_MainAcademy
         public AeroportModel FindTheAeroportWithIndex(int index)
         {
             return Aeroports.ElementAt(index - 1);
+        }
+        private int Initialization(string Message = "")
+        {
+            int valueUser;
+            while (true)
+            {
+                Console.Write(Message);
+
+                try // ВЫНЕСТИ в ОТдельный метод
+                {
+                    valueUser = int.Parse(Console.ReadLine());
+
+                    break;
+                }
+                catch (Exception)
+                {
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    Console.WriteLine("You enter INCORRECT data, try again");
+
+                    Console.ForegroundColor = ConsoleColor.White;
+
+
+                }
+            }
+
+            return valueUser;
         }
     }
 }
