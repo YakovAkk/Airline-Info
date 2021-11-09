@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    enum CurrencyType
+    enum CurrencyTypeModel
     {
         None = 0,
         UAH,

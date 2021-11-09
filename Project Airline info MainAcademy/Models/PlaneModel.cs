@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Project_Airline_info_MainAcademy
 {
     
-    class Plane // every palne division on 3 part - economy class , business class , and first class
+    class PlaneModel // every palne division on 3 part - economy class , business class , and first class
     {
-        public StatusOfFly StatusOfFly { get; private set; }
+        public StatusOfFlyModel StatusOfFly { get; private set; }
         private static int CountOfPlane = 0;
         private int NumOfPlane = 0;
 
@@ -26,49 +26,49 @@ namespace Project_Airline_info_MainAcademy
         public int CountPassagersInsideEconomyClass { get; private set; }
 
         // price for one place in every class
-        public TicketOnPlane PriceFirst { get; private set; }
-        public TicketOnPlane PriceBusiness { get; private set; }
-        public TicketOnPlane PriceEconomy { get; private set; }
+        public TicketOnPlaneModel PriceFirst { get; private set; }
+        public TicketOnPlaneModel PriceBusiness { get; private set; }
+        public TicketOnPlaneModel PriceEconomy { get; private set; }
 
 
         // lists with person in everyone class
-        public List<Person> ListOfPeople { get; private set; }
+        public List<PersonModel> ListOfPeople { get; private set; }
         //constructor
 
-        public Plane(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
+        public PlaneModel(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
         {
-            PriceFirst = new TicketOnPlane(ClassFromPlane.First,new Purse(CurrencyType.USD, 200));
-            PriceBusiness = new TicketOnPlane(ClassFromPlane.Business, new Purse(CurrencyType.USD, 100));
-            PriceEconomy = new TicketOnPlane(ClassFromPlane.Economy, new Purse(CurrencyType.USD, 30));
+            PriceFirst = new TicketOnPlaneModel(ClassFromPlaneModel.First,new PurseModel(CurrencyTypeModel.USD, 200));
+            PriceBusiness = new TicketOnPlaneModel(ClassFromPlaneModel.Business, new PurseModel(CurrencyTypeModel.USD, 100));
+            PriceEconomy = new TicketOnPlaneModel(ClassFromPlaneModel.Economy, new PurseModel(CurrencyTypeModel.USD, 30));
 
-            StatusOfFly = StatusOfFly.CheckIn;
+            StatusOfFly = StatusOfFlyModel.CheckIn;
             this.NameOfPlane = NameOfPlane;
             NumOfPlane = ++CountOfPlane;
             this.MaxPlaceFirstClass = MaxPlaceFirstClass;
             this.MaxPlaceBusinessClass = MaxPlaceBusinessClass;
             this.MaxPlaceEcomomyClass = MaxPlaceEcomomyClass;
-            ListOfPeople = new List<Person>();
+            ListOfPeople = new List<PersonModel>();
           
         }
 
         // append person in class list 
-        public void AddToList(Person person)
+        public void AddToList(PersonModel person)
         {
-            if(CountPassagersInsideEconomyClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
+            if(CountPassagersInsideEconomyClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.Economy)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideEconomyClass++;
             }
            
 
-            if (CountPassagersInsideBusinessClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Business)
+            if (CountPassagersInsideBusinessClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.Business)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideBusinessClass++;
             }
             
 
-            if (CountPassagersInsideFirstClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.First)
+            if (CountPassagersInsideFirstClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.First)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideFirstClass++;
@@ -78,7 +78,7 @@ namespace Project_Airline_info_MainAcademy
 
 
         // remove person in class list 
-        public void RemoveFromList(Person person)
+        public void RemoveFromList(PersonModel person)
         {
             ListOfPeople.Remove(person);
         }
@@ -153,7 +153,7 @@ namespace Project_Airline_info_MainAcademy
         {
             foreach (var PersonFormEconomyClass in ListOfPeople)
             {
-                if(PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
+                if(PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Economy)
                 {
                     Console.WriteLine(PersonFormEconomyClass);
                     Console.WriteLine("---------------------");
@@ -165,7 +165,7 @@ namespace Project_Airline_info_MainAcademy
         {
             foreach (var PersonFormBusinessClass in ListOfPeople)
             {
-                if(PersonFormBusinessClass.PersonsTicket.ClassTicket == ClassFromPlane.Business)
+                if(PersonFormBusinessClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Business)
                 {
                     Console.WriteLine(PersonFormBusinessClass);
                     Console.WriteLine("---------------------");
@@ -177,7 +177,7 @@ namespace Project_Airline_info_MainAcademy
         {
             foreach (var PersonFormFirstClass in ListOfPeople)
             {
-                if(PersonFormFirstClass.PersonsTicket.ClassTicket == ClassFromPlane.First)
+                if(PersonFormFirstClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.First)
                 {
                     Console.WriteLine(PersonFormFirstClass);
                     Console.WriteLine("---------------------");
@@ -185,7 +185,7 @@ namespace Project_Airline_info_MainAcademy
                 
             }
         }
-        public void SetStatusOfFly(StatusOfFly StatusOfFly)
+        public void SetStatusOfFly(StatusOfFlyModel StatusOfFly)
         {
             this.StatusOfFly = StatusOfFly;
         }    

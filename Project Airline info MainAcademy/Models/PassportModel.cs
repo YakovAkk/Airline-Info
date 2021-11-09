@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Passport
+    class PassportModel
     {
-        private static string[] ArrFirstName = new Parse().ParseJsonFile("First Name.json");
-        private static string[] ArrSecondName = new Parse().ParseJsonFile("Second Name.json");
-        private static string[] ArrNationality = new Parse().ParseJsonFile("Nationality.json");
+        private static string[] ArrFirstName = new ParseModel().ParseJsonFile("First Name.json");
+        private static string[] ArrSecondName = new ParseModel().ParseJsonFile("Second Name.json");
+        private static string[] ArrNationality = new ParseModel().ParseJsonFile("Nationality.json");
 
         private static Random UsersRandom = new Random();
         public string FirstName { get; private set; }
@@ -21,7 +21,7 @@ namespace Project_Airline_info_MainAcademy
         public DateTime DateOfBirthday { get; private set; }
         public string Sex { get; private set; }
         
-        public Passport()
+        public PassportModel()
         {
             FirstName = RandFirstName();
             SecondName = RandSecondName();

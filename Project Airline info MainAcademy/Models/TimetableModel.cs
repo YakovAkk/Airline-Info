@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Timetable
+    class TimetableModel
     {
-        public static readonly List<Timetable> Timetables = new List<Timetable>();
+        public static readonly List<TimetableModel> Timetables = new List<TimetableModel>();
 
         static int CountOFRaces = 0;
         public int NumOfRace { get; private set; }
@@ -20,11 +20,11 @@ namespace Project_Airline_info_MainAcademy
         public DateTime StartTimeOfDeparture { get; private set; }
         public DateTime EndTimeOfDeparture { get; private set; }
 
-        public Timetable(List<Aeroport> TempAeroports) // for schedule management
+        public TimetableModel(List<AeroportModel> TempAeroports) // for schedule management
         {
             AddToTimetable(TempAeroports);
         }
-        public Timetable(string NameOfPlane, string StartPoint ,DateTime StartTimeOfDeparture, string EndPoint ,
+        public TimetableModel(string NameOfPlane, string StartPoint ,DateTime StartTimeOfDeparture, string EndPoint ,
             DateTime EndTimeOfDeparture , int CountOfFreePlaces)
         {
             NumOfRace = CountOFRaces++;
@@ -42,7 +42,7 @@ namespace Project_Airline_info_MainAcademy
                 $" \nFree Place : {CountOfFreePlaces}";
         }
 
-        public static void PrintTimetableForAeroport(Aeroport TempAeroports)
+        public static void PrintTimetableForAeroport(AeroportModel TempAeroports)
         {
             foreach (var Timetable in Timetables)
             {
@@ -53,7 +53,7 @@ namespace Project_Airline_info_MainAcademy
                 }
             }
         }
-        public static void PrintTimetableForPlane(Plane TempPlane)
+        public static void PrintTimetableForPlane(PlaneModel TempPlane)
         {
             foreach (var Timetable in Timetables)
             {
@@ -64,7 +64,7 @@ namespace Project_Airline_info_MainAcademy
                 }
             }
         }
-        private void AddToTimetable(List<Aeroport> Tempaeroports)
+        private void AddToTimetable(List<AeroportModel> Tempaeroports)
         {
             foreach (var Aeroport1 in Tempaeroports)
             {
@@ -78,7 +78,7 @@ namespace Project_Airline_info_MainAcademy
                     {
                         foreach (var item in Aeroport2.GetPlanes())
                         {
-                            Timetables.Add(new Timetable(item.NameOfPlane, Aeroport1.NameOfAeroport, new DateTime().Date.AddDays(1), Aeroport2.NameOfAeroport,
+                            Timetables.Add(new TimetableModel(item.NameOfPlane, Aeroport1.NameOfAeroport, new DateTime().Date.AddDays(1), Aeroport2.NameOfAeroport,
                             new DateTime().Date.AddDays(2), item.GetFreePlaces()));
                         }
                     }

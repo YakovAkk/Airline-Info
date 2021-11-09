@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Parse
+    class ParseModel
     {
         public string[] ParseJsonFile(string pathToFile)
         {

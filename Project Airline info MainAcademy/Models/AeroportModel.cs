@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Aeroport
+    class AeroportModel
     {
         private static Random UsersRandom = new Random();
         public int CountOfPeopleInArroport { get;private set; }
@@ -14,14 +14,14 @@ namespace Project_Airline_info_MainAcademy
         private const int MaxPeople = 300;
         public string NameOfAeroport { get; private set; }
         public int CountOfPlace { get; private set; }
-        public List<Plane> PlaceForPlane { get; private set; }
-        public List<Person> PeopleInAeroport { get; private set; }
+        public List<PlaneModel> PlaceForPlane { get; private set; }
+        public List<PersonModel> PeopleInAeroport { get; private set; }
 
         //constructor
-        public Aeroport(string NameOfAeroport, int countOfPlace)
+        public AeroportModel(string NameOfAeroport, int countOfPlace)
         {
-            PlaceForPlane = new List<Plane>();
-            PeopleInAeroport = new List<Person>();
+            PlaceForPlane = new List<PlaneModel>();
+            PeopleInAeroport = new List<PersonModel>();
             CountOfPeopleInArroport = UsersRandom.Next(MinPeople, MaxPeople);
             this.NameOfAeroport = NameOfAeroport;
             this.CountOfPlace = countOfPlace;
@@ -29,26 +29,26 @@ namespace Project_Airline_info_MainAcademy
 
         }
         // methoods List people
-        public List<Person> GetListWithPeopleInAeroport()
+        public List<PersonModel> GetListWithPeopleInAeroport()
         {
             return PeopleInAeroport;
         }
-        private List<Person> GetSomePeople()
+        private List<PersonModel> GetSomePeople()
         {
-            List<Person> People = new List<Person>();
+            List<PersonModel> People = new List<PersonModel>();
 
             for (int i = 0; i < CountOfPeopleInArroport; i++)
             {
-                People.Add(new Person(new Passport(), new Purse(),new TicketOnPlane()));
+                People.Add(new PersonModel(new PassportModel(), new PurseModel(),new TicketOnPlaneModel()));
             }
 
             return People;
         }
-        public List<Plane> GetPlanes()
+        public List<PlaneModel> GetPlanes()
         {
             return PlaceForPlane;
         }
-        public void RemoveFromListWithPeople(List<Person> people)
+        public void RemoveFromListWithPeople(List<PersonModel> people)
         {
             foreach (var person in people)
             {
@@ -59,13 +59,13 @@ namespace Project_Airline_info_MainAcademy
         {
             return PeopleInAeroport.Count();
         }
-        public Plane FindThePlaneWithIndex(int index)
+        public PlaneModel FindThePlaneWithIndex(int index)
         {
             return PlaceForPlane.ElementAt(index - 1);
         }
 
         // methoods Listvwith plane
-        public void AddPlaneToAeroport(Plane plane)
+        public void AddPlaneToAeroport(PlaneModel plane)
         {
             if(CountOfPlane() < CountOfPlace)
             {
@@ -77,7 +77,7 @@ namespace Project_Airline_info_MainAcademy
             }
             
         }
-        public void RemovePlaneFromAeroport(Plane plane)
+        public void RemovePlaneFromAeroport(PlaneModel plane)
         {      
             if(CountOfPlane() == 0)
             {

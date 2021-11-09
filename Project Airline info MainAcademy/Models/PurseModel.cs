@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Purse
+    class PurseModel
     {
         private static Random UserRandom = new Random(); // Amount in Person's pusre is randomed by the variable 
         private const int RandAmountMax = 10000;
         private const int RandAmountMin = 2000;
-        public CurrencyType TypeOfMoney { get; private set; }
+        public CurrencyTypeModel TypeOfMoney { get; private set; }
         public double Amount { get;private set; }
 
         public static double CourseToUSD { get; private set; }
@@ -19,14 +19,14 @@ namespace Project_Airline_info_MainAcademy
 
 
         // Constructors
-        public Purse()
+        public PurseModel()
         {
-            TypeOfMoney = CurrencyType.UAH;
+            TypeOfMoney = CurrencyTypeModel.UAH;
             Amount = UserRandom.Next(RandAmountMin, RandAmountMax);
             CourseToUSD = 26.55;
             CourseToEU = 30.51;
         }
-        public Purse(CurrencyType typeOfMoney, double Amount)
+        public PurseModel(CurrencyTypeModel typeOfMoney, double Amount)
         {
             this.TypeOfMoney = typeOfMoney;
             this.Amount = Amount;
@@ -37,18 +37,18 @@ namespace Project_Airline_info_MainAcademy
         //Methoods
         private double MoneyExchange()
         {
-            if (TypeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyTypeModel.UAH)
             {
                 return Amount;
             }
-            if (TypeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyTypeModel.USD)
             {
-                TypeOfMoney = CurrencyType.UAH;
+                TypeOfMoney = CurrencyTypeModel.UAH;
                 return Amount * CourseToUSD;
             }
-            if (TypeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyTypeModel.EU)
             {
-                TypeOfMoney = CurrencyType.UAH;
+                TypeOfMoney = CurrencyTypeModel.UAH;
                 return Amount * CourseToEU;
             }
             else
@@ -56,17 +56,17 @@ namespace Project_Airline_info_MainAcademy
                 return 0;
             }
         }
-        private double MoneyConvertor(CurrencyType TypeOfMoney)
+        private double MoneyConvertor(CurrencyTypeModel TypeOfMoney)
         {
-            if (TypeOfMoney == CurrencyType.UAH)
+            if (TypeOfMoney == CurrencyTypeModel.UAH)
             {
                 return Amount;
             }
-            if (TypeOfMoney == CurrencyType.USD)
+            if (TypeOfMoney == CurrencyTypeModel.USD)
             {
                 return Amount / CourseToUSD;
             }
-            if (TypeOfMoney == CurrencyType.EU)
+            if (TypeOfMoney == CurrencyTypeModel.EU)
             {
                 return Amount / CourseToEU;
             }
@@ -75,24 +75,24 @@ namespace Project_Airline_info_MainAcademy
                 return 0;
             }
         }
-        public double GetBalance(CurrencyType TypeOfMoney = CurrencyType.UAH)
+        public double GetBalance(CurrencyTypeModel TypeOfMoney = CurrencyTypeModel.UAH)
         {
             return MoneyConvertor(TypeOfMoney);
         }
 
         public override string ToString()
         {
-            return $"Type of money is {CurrencyType.UAH}. " + $"Balance is {this.Amount}";
+            return $"Type of money is {CurrencyTypeModel.UAH}. " + $"Balance is {this.Amount}";
         }
-        public static Purse operator +(Purse one, Purse two)
+        public static PurseModel operator +(PurseModel one, PurseModel two)
         {
-            return new Purse(CurrencyType.UAH, one.Amount + two.Amount);
+            return new PurseModel(CurrencyTypeModel.UAH, one.Amount + two.Amount);
         }
-        public static Purse operator -(Purse one, Purse two)
+        public static PurseModel operator -(PurseModel one, PurseModel two)
         {
-            return new Purse(CurrencyType.UAH, one.Amount - two.Amount);
+            return new PurseModel(CurrencyTypeModel.UAH, one.Amount - two.Amount);
         }
-        public static bool operator < (Purse one, Purse two)
+        public static bool operator < (PurseModel one, PurseModel two)
         {
             if(one.GetBalance() < two.GetBalance())
             {
@@ -103,7 +103,7 @@ namespace Project_Airline_info_MainAcademy
                 return false;
             }
         }
-        public static bool operator > (Purse one, Purse two)
+        public static bool operator > (PurseModel one, PurseModel two)
         {
             if (one.GetBalance() < two.GetBalance())
             {
