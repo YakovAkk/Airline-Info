@@ -86,105 +86,13 @@ namespace Project_Airline_info_MainAcademy
         // Number of people in eveyone class
 
         // All info from list classes
-        public void AllInfoPassagers()
-        {
-            if(CountPassagersInsideEconomyClass > 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Economy Class : ");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-                infoListEconomy();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Economy class is empty");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            if(CountPassagersInsideBusinessClass > 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Business Class : ");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-                infoListBusiness();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Business class is empty");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            if(CountPassagersInsideFirstClass > 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("First Class : ");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-                infoListFirst();
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("First class is empty");
-                Console.WriteLine("===========================================================");
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-            
-        }
+        
         public override string ToString()
         {
             return $"Plane {NameOfPlane} with Number {NumOfPlane}  Status {StatusOfFly}";
         }
 
-        private void infoListEconomy()
-        {
-            foreach (var PersonFormEconomyClass in ListOfPeople)
-            {
-                if(PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Economy)
-                {
-                    Console.WriteLine(PersonFormEconomyClass);
-                    Console.WriteLine("---------------------");
-                }
-                
-            }
-        }
-        private void infoListBusiness()
-        {
-            foreach (var PersonFormBusinessClass in ListOfPeople)
-            {
-                if(PersonFormBusinessClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Business)
-                {
-                    Console.WriteLine(PersonFormBusinessClass);
-                    Console.WriteLine("---------------------");
-                }
-                
-            }
-        }
-        private void infoListFirst()
-        {
-            foreach (var PersonFormFirstClass in ListOfPeople)
-            {
-                if(PersonFormFirstClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.First)
-                {
-                    Console.WriteLine(PersonFormFirstClass);
-                    Console.WriteLine("---------------------");
-                }
-                
-            }
-        }
+      
         public void SetStatusOfFly(StatusOfFlyModel StatusOfFly)
         {
             this.StatusOfFly = StatusOfFly;

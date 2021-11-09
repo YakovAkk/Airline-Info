@@ -16,7 +16,6 @@ namespace Project_Airline_info_MainAcademy
         public string EndPoint { get; private set; }
         public string NameOfPlane { get; private set;  }
         public int CountOfFreePlaces { get; private set; }
-
         public DateTime StartTimeOfDeparture { get; private set; }
         public DateTime EndTimeOfDeparture { get; private set; }
         public TimetableModel(List<AeroportModel> TempAeroports) // for schedule management
