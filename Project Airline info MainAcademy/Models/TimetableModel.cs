@@ -19,7 +19,6 @@ namespace Project_Airline_info_MainAcademy
 
         public DateTime StartTimeOfDeparture { get; private set; }
         public DateTime EndTimeOfDeparture { get; private set; }
-
         public TimetableModel(List<AeroportModel> TempAeroports) // for schedule management
         {
             AddToTimetable(TempAeroports);
@@ -40,29 +39,6 @@ namespace Project_Airline_info_MainAcademy
             return $"Num : {NumOfRace} \nName : {NameOfPlane} \nStart : {StartPoint} {StartTimeOfDeparture}" +
                 $" \nEnd : {EndPoint} {EndTimeOfDeparture} " +
                 $" \nFree Place : {CountOfFreePlaces}";
-        }
-
-        public static void PrintTimetableForAeroport(AeroportModel TempAeroports)
-        {
-            foreach (var Timetable in Timetables)
-            {
-                if (Timetable.StartPoint == TempAeroports.NameOfAeroport || Timetable.EndPoint == TempAeroports.NameOfAeroport)
-                {
-                    Console.WriteLine(Timetable.ToString());
-                    Console.WriteLine("================================================");
-                }
-            }
-        }
-        public static void PrintTimetableForPlane(PlaneModel TempPlane)
-        {
-            foreach (var Timetable in Timetables)
-            {
-                if (Timetable.NameOfPlane == TempPlane.NameOfPlane)
-                {
-                    Console.WriteLine(Timetable.ToString());
-                    Console.WriteLine("================================================");
-                }
-            }
         }
         private void AddToTimetable(List<AeroportModel> Tempaeroports)
         {
