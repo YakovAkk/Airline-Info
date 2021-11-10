@@ -9,7 +9,7 @@ namespace Project_Airline_info_MainAcademy
     
     class PlaneModel // every palne division on 3 part - economy class , business class , and first class
     {
-        public StatusOfFlyModel StatusOfFly { get; private set; }
+        public StatusOfFly StatusOfFly { get; private set; }
         private static int CountOfPlane = 0;
         private int NumOfPlane = 0;
 
@@ -37,11 +37,11 @@ namespace Project_Airline_info_MainAcademy
 
         public PlaneModel(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
         {
-            PriceFirst = new TicketOnPlaneModel(ClassFromPlaneModel.First,new PurseModel(CurrencyTypeModel.USD, 200));
-            PriceBusiness = new TicketOnPlaneModel(ClassFromPlaneModel.Business, new PurseModel(CurrencyTypeModel.USD, 100));
-            PriceEconomy = new TicketOnPlaneModel(ClassFromPlaneModel.Economy, new PurseModel(CurrencyTypeModel.USD, 30));
+            PriceFirst = new TicketOnPlaneModel(ClassFromPlane.First,new PurseModel(CurrencyType.USD, 200));
+            PriceBusiness = new TicketOnPlaneModel(ClassFromPlane.Business, new PurseModel(CurrencyType.USD, 100));
+            PriceEconomy = new TicketOnPlaneModel(ClassFromPlane.Economy, new PurseModel(CurrencyType.USD, 30));
 
-            StatusOfFly = StatusOfFlyModel.CheckIn;
+            StatusOfFly = StatusOfFly.CheckIn;
             this.NameOfPlane = NameOfPlane;
             NumOfPlane = ++CountOfPlane;
             this.MaxPlaceFirstClass = MaxPlaceFirstClass;
@@ -54,21 +54,21 @@ namespace Project_Airline_info_MainAcademy
         // append person in class list 
         public void AddToList(PersonModel person)
         {
-            if(CountPassagersInsideEconomyClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.Economy)
+            if(CountPassagersInsideEconomyClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideEconomyClass++;
             }
            
 
-            if (CountPassagersInsideBusinessClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.Business)
+            if (CountPassagersInsideBusinessClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.Business)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideBusinessClass++;
             }
             
 
-            if (CountPassagersInsideFirstClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlaneModel.First)
+            if (CountPassagersInsideFirstClass < MaxPlaceEcomomyClass && person.PersonsTicket.ClassTicket == ClassFromPlane.First)
             {
                 ListOfPeople.Add(person);
                 CountPassagersInsideFirstClass++;
@@ -93,7 +93,7 @@ namespace Project_Airline_info_MainAcademy
         }
 
       
-        public void SetStatusOfFly(StatusOfFlyModel StatusOfFly)
+        public void SetStatusOfFly(StatusOfFly StatusOfFly)
         {
             this.StatusOfFly = StatusOfFly;
         }    

@@ -61,7 +61,16 @@ namespace Project_Airline_info_MainAcademy
         }
         public PlaneModel FindThePlaneWithIndex(int index)
         {
-            return PlaceForPlane.ElementAt(index - 1);
+            if (index <= CountOfPlane() && index > 0)
+            {
+                return PlaceForPlane.ElementAt(index - 1);
+                
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
         // methoods Listvwith plane

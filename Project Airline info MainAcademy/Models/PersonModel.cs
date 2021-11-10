@@ -13,9 +13,7 @@ namespace Project_Airline_info_MainAcademy
                                     // first name , second name , Nationality, NumOfPassport,DateOfBirthday and Sex
         public TicketOnPlaneModel PersonsTicket { get;private set; } // Class which the person will fly to new city
         public PurseModel PersonsPurse { get;private set; } // his/her money
-
         // construcors
-
         public PersonModel(PassportModel passport, PurseModel purse, TicketOnPlaneModel ticket)
         {
             PersonsPassport = passport;

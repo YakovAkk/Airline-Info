@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_Airline_info_MainAcademy.Storage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +9,16 @@ namespace Project_Airline_info_MainAcademy
 {
     class MainController
     {
+        public SingleStorage MyStorage { get; private set; }
         private static AdminController UserAdmin = new AdminController();
         ViewConsole MyViewConsole = new ViewConsole();
         private PlaneModel UserPlane { get; set; }
         private AeroportModel UserAeroport { get; set; } 
         public MainController()
+        {
+           MyStorage  = SingleStorage.GetInstance();
+        }
+        public void Run()
         {
             MyViewConsole.TimeableAeroportEvent += MyViewConsole_TimeableAeroportEvent;
             MyViewConsole.MainMenuEvent += MyViewConsole_MainMenu;
@@ -23,6 +29,7 @@ namespace Project_Airline_info_MainAcademy
             MyViewConsole.MenuOfPlaneEvent += MyViewConsole_MenuOfPlaneEvent;
             MyViewConsole.TimeablePlaneEvent += MyViewConsole_TimeablePlaneEvent;
             MyViewConsole.CountOfCustomersEvent += MyViewConsole_CountOfCustomersEvent;
+            MyViewConsole.ShowMenu();
         }
         public void Stop()
         {
@@ -35,9 +42,7 @@ namespace Project_Airline_info_MainAcademy
             MyViewConsole.MenuOfPlaneEvent -= MyViewConsole_MenuOfPlaneEvent;
             MyViewConsole.CountOfCustomersEvent -= MyViewConsole_CountOfCustomersEvent;
         }
-
-        private void MyViewConsole_CountOfCustomersEvent(int countOfCustomers) // в ответ на событие я купил пасажирам билеты, нужно реализовать
-                                                                              // это функцией
+        private void MyViewConsole_CountOfCustomersEvent(int countOfCustomers)                                                                     
         {
             if (countOfCustomers < UserAeroport.GetCountOfLitsWithPeopleInAeroport())
             {
@@ -51,48 +56,40 @@ namespace Project_Airline_info_MainAcademy
                     if (person.PersonsPurse > UserPlane.PriceFirst.TicketPrice)
                     {
                         person.ToBuy(UserPlane.PriceFirst.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlaneModel.First);
+                        person.PersonsTicket.SetClassTicket(ClassFromPlane.First);
 
                         UserPlane.AddToList(person);
 
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into First class");
+                        MyViewConsole.ShowAddedPersonToList(person);
                     }
                     else if (person.PersonsPurse > UserPlane.PriceBusiness.TicketPrice)
                     {
                         person.ToBuy(UserPlane.PriceBusiness.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlaneModel.Business);
+                        person.PersonsTicket.SetClassTicket(ClassFromPlane.Business);
 
                         UserPlane.AddToList(person);
 
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into Business class");
+                        MyViewConsole.ShowAddedPersonToList(person);
                     }
                     else if (person.PersonsPurse > UserPlane.PriceEconomy.TicketPrice)
                     {
                         person.ToBuy(UserPlane.PriceEconomy.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlaneModel.Economy);
+                        person.PersonsTicket.SetClassTicket(ClassFromPlane.Economy);
 
                         UserPlane.AddToList(person);
 
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into Economy class");
+                        MyViewConsole.ShowAddedPersonToList(person);
                     }
                     countOfCustomers--;
                 }
                 UserAeroport.RemoveFromListWithPeople(UserPlane.ListOfPeople);
 
-                Console.Write("Enter something...");
-                Console.ReadKey();
-                UserPlane.SetStatusOfFly(StatusOfFlyModel.GateClosed);
+                MyViewConsole.ShowEndedOFSentence();
+                UserPlane.SetStatusOfFly(StatusOfFly.GateClosed);
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Too many! Aeroport doesn't contain {countOfCustomers} people");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("Enter something...");
-                Console.ReadKey();
+                MyViewConsole.ShowErrorOFBuyTicket(countOfCustomers);
             }
         }
         private void MyViewConsole_MenuOfPlaneEvent(int UserNumber)
@@ -104,8 +101,8 @@ namespace Project_Airline_info_MainAcademy
                     MyViewConsole.MenuForPlane(UserPlane , UserAeroport);
                     break;
                 case 2:
-                    
-                    SellTicket(TempPlane, aeroport);
+                    MyViewConsole.SellTicket(UserPlane, UserAeroport);
+                    //SellTicket(TempPlane, aeroport);
 
                     MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
                     break;
@@ -135,6 +132,7 @@ namespace Project_Airline_info_MainAcademy
         private void MyViewConsole_MenuOfDepart(int Num)
         {
             UserAdmin.DepartDepartThePlaneToNextAeroport(Num,UserAeroport);
+            MyViewConsole.ShowDepartsTime(UserPlane, UserAeroport);
         }
         private void MyViewConsole_TimeableAeroportEvent(AeroportModel TempAeroport)
         {
@@ -147,23 +145,23 @@ namespace Project_Airline_info_MainAcademy
         private void MyViewConsole_PlaneEvent(int NumOfPlane)
         {
             UserPlane = UserAeroport.FindThePlaneWithIndex(NumOfPlane);
-            if (NumOfPlane <= UserAeroport.CountOfPlane() && NumOfPlane > 0)
-            {
-                var TempPlane = UserAeroport.FindThePlaneWithIndex(NumOfPlane);
-                MyViewConsole.MenuForPlane(TempPlane, UserAeroport);
-            }
-            else
+            if(UserPlane == null)
             {
                 MyViewConsole.ErrorOfPlane();
             }
+            else
+            {
+                MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
+            }
+           
+            
         } 
         private void MyViewConsole_MenuOfAeroportEvent(int UsersNum)
         {
-
             switch (UsersNum)
             {
                 case 1:
-                    UserAeroport = UserAdmin.FindTheAeroportWithIndex(UsersNum);
+                    UserAeroport = MyStorage.FindTheAeroportWithIndex(UsersNum);
                     MyViewConsole.MenuToEachPlaneInAeroport(UserAeroport);
                     break;
 
@@ -203,7 +201,7 @@ namespace Project_Airline_info_MainAcademy
             switch (UsersChoise)
             {
                 case 1:
-                    Console.Clear();
+                   
                     MyViewConsole.MenuCityWithAeroport();
                     break;
 
@@ -217,19 +215,15 @@ namespace Project_Airline_info_MainAcademy
         }
         private void MyViewConsole_CityAeroportMenuMenu(int UsersNumber)
         {
-            if(UsersNumber < UserAdmin.Aeroports.Count)
+            if(UsersNumber < MyStorage.Aeroports.Count)
             {
-                UserAeroport = UserAdmin.FindTheAeroportWithIndex(UsersNumber);
+                UserAeroport = MyStorage.FindTheAeroportWithIndex(UsersNumber);
                 MyViewConsole.MenuOfAeroport(UserAeroport);
             }
             else
             {
                 MyViewConsole.ShowMenu();
             }
-        }
-        public void Run()
-        {
-            MyViewConsole.ShowMenu();
         }
     }
 }

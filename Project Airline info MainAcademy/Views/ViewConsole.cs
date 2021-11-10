@@ -226,7 +226,7 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("Economy Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                infoListEconomy(plane);
+                InfoListAboutClassesFromPlane(plane, ClassFromPlane.Economy);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -244,7 +244,7 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("Business Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                infoListBusiness(plane);
+                InfoListAboutClassesFromPlane(plane,ClassFromPlane.Business);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -262,7 +262,7 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("First Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                infoListFirst(plane);
+                InfoListAboutClassesFromPlane(plane, ClassFromPlane.First);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -276,11 +276,11 @@ namespace Project_Airline_info_MainAcademy
             }
 
         }
-        private void infoListEconomy(PlaneModel plane)
+        private void InfoListAboutClassesFromPlane(PlaneModel plane , ClassFromPlane classFromPlaneModel )
         {
             foreach (var PersonFormEconomyClass in plane.ListOfPeople)
             {
-                if (PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Economy)
+                if (PersonFormEconomyClass.PersonsTicket.ClassTicket == classFromPlaneModel)
                 {
                     Console.WriteLine(PersonFormEconomyClass);
                     Console.WriteLine("---------------------");
@@ -288,32 +288,7 @@ namespace Project_Airline_info_MainAcademy
 
             }
         }
-        private void infoListBusiness(PlaneModel plane)
-        {
-            foreach (var PersonFormBusinessClass in plane.ListOfPeople)
-            {
-                if (PersonFormBusinessClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.Business)
-                {
-                    Console.WriteLine(PersonFormBusinessClass);
-                    Console.WriteLine("---------------------");
-                }
-
-            }
-        }
-        private void infoListFirst(PlaneModel plane)
-        {
-            foreach (var PersonFormFirstClass in plane.ListOfPeople)
-            {
-                if (PersonFormFirstClass.PersonsTicket.ClassTicket == ClassFromPlaneModel.First)
-                {
-                    Console.WriteLine(PersonFormFirstClass);
-                    Console.WriteLine("---------------------");
-                }
-
-            }
-        }
-
-        private void SellTicket(PlaneModel TempPlane, AeroportModel aeroport)
+        public void SellTicket(PlaneModel TempPlane, AeroportModel aeroport)
         {
             Console.Clear();
             Console.WriteLine("How many people do you want to sell tickets?");
@@ -322,7 +297,31 @@ namespace Project_Airline_info_MainAcademy
 
         }
 
-
+        public void ShowAddedPersonToList(PersonModel person)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine($"\n{person.ToString()} was append to plane into Business class");
+        }
+        public void ShowEndedOFSentence()
+        {
+            Console.Write("Enter something...");
+            Console.ReadKey();
+        }
+        public void ShowErrorOFBuyTicket(int countOfCustomers)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Too many! Aeroport doesn't contain {countOfCustomers} people");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Enter something...");
+            Console.ReadKey();
+        }
+        public void ShowDepartsTime(PlaneModel TempPlane, AeroportModel Aeroport)
+        {
+            Console.Clear();
+            Console.WriteLine(TempPlane.ToString() + "Will arrive to " + Aeroport.NameOfAeroport + "in 3 min 20 sec");
+            Console.Write("Enter Something...");
+            Console.ReadKey();
+        }
         private int Initialization(string Message = "")
         {
             int valueUser;
@@ -351,5 +350,7 @@ namespace Project_Airline_info_MainAcademy
 
             return valueUser;
         }
+
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Project_Airline_info_MainAcademy
 { 
 
-    enum ClassFromPlaneModel
+    enum ClassFromPlane
     {
         None = 0,
         Economy,
@@ -16,21 +16,21 @@ namespace Project_Airline_info_MainAcademy
     }
     class TicketOnPlaneModel
     {
-        public ClassFromPlaneModel ClassTicket { get; private set; }
+        public ClassFromPlane ClassTicket { get; private set; }
         public PurseModel TicketPrice { get; private set; }
 
         public TicketOnPlaneModel()
         {
-            ClassTicket = ClassFromPlaneModel.None;
-            TicketPrice = new PurseModel(CurrencyTypeModel.UAH, 0);
+            ClassTicket = ClassFromPlane.None;
+            TicketPrice = new PurseModel(CurrencyType.UAH, 0);
         }
-        public TicketOnPlaneModel(ClassFromPlaneModel ClassTicket , PurseModel TicketPrice)
+        public TicketOnPlaneModel(ClassFromPlane ClassTicket , PurseModel TicketPrice)
         {
             this.ClassTicket = ClassTicket;
             this.TicketPrice = TicketPrice;
         }
 
-        public void SetClassTicket(ClassFromPlaneModel ClassTicket)
+        public void SetClassTicket(ClassFromPlane ClassTicket)
         {
             this.ClassTicket = ClassTicket;
         }

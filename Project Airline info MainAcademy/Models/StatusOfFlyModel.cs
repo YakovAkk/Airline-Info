@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    enum StatusOfFlyModel
+    enum StatusOfFly
     {
         Unknown,
         CheckIn,
