@@ -9,13 +9,14 @@ namespace Project_Airline_info_MainAcademy
 {
     class AdminController
     {
-        private readonly SingleStorage MyStorage;
+        private readonly SingleStorage _myStorage;
 
-        ViewConsole MyViewConsole = new ViewConsole();
+        private ViewConsole _myViewConsole;
         // constructor
         public AdminController()
         {
-            MyStorage = SingleStorage.GetInstance();
+            _myViewConsole = new ViewConsole();
+            _myStorage = SingleStorage.GetInstance();
         }
         public void DepartDepartThePlaneToNextAeroport(int NumOfPlane, AeroportModel TempAeroport)
         {
@@ -25,24 +26,24 @@ namespace Project_Airline_info_MainAcademy
 
                 if (TempPlane.StatusOfFly == StatusOfFly.GateClosed)
                 {
-                    MyViewConsole.ShowArrivedOfPlane();
+                    _myViewConsole.ShowArrivedOfPlane();
 
                     var NumOfAeroport = Initialization("Your choose : ");
 
 
-                    DepartThePlane(TempPlane, MyStorage.FindTheAeroportWithIndex(NumOfAeroport));
+                    DepartThePlane(TempPlane, _myStorage.FindTheAeroportWithIndex(NumOfAeroport));
 
                     TempAeroport.RemovePlaneFromAeroport(TempPlane);
 
                 }
                 else
                 {
-                   MyViewConsole.ShowErrorOfArrived();
+                   _myViewConsole.ShowErrorOfArrived();
                 }
             }
             else
             {
-                MyViewConsole.ErrorOfPlane();
+                _myViewConsole.ErrorOfPlane();
             }
         }
         private void DepartThePlane(PlaneModel TempPlane, AeroportModel Aeroport)
