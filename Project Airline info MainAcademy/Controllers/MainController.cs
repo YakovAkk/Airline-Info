@@ -9,40 +9,43 @@ namespace Project_Airline_info_MainAcademy
 {
     class MainController
     {
-        public SingleStorage MyStorage { get; private set; }
-        private static AdminController UserAdmin = new AdminController();
-        ViewConsole MyViewConsole = new ViewConsole();
+        private readonly SingleStorage _myStorage;
+        private static AdminController _userAdmin;
+        private ViewConsole _myViewConsole;
         private PlaneModel UserPlane { get; set; }
         private AeroportModel UserAeroport { get; set; } 
         public MainController()
         {
-           MyStorage  = SingleStorage.GetInstance();
+            _userAdmin = new AdminController();
+            _myStorage  = SingleStorage.GetInstance();
+            _myViewConsole = new ViewConsole();
         }
         public void Run()
         {
-            MyViewConsole.TimeableAeroportEvent += MyViewConsole_TimeableAeroportEvent;
-            MyViewConsole.MainMenuEvent += MyViewConsole_MainMenu;
-            MyViewConsole.CityAeroportMenuEvent += MyViewConsole_CityAeroportMenuMenu;
-            MyViewConsole.MenuOfAeroportEvent += MyViewConsole_MenuOfAeroportEvent;
-            MyViewConsole.PlaneEvent += MyViewConsole_PlaneEvent;
-            MyViewConsole.MenuOfDepart += MyViewConsole_MenuOfDepart;
-            MyViewConsole.MenuOfPlaneEvent += MyViewConsole_MenuOfPlaneEvent;
-            MyViewConsole.TimeablePlaneEvent += MyViewConsole_TimeablePlaneEvent;
-            MyViewConsole.CountOfCustomersEvent += MyViewConsole_CountOfCustomersEvent;
-            MyViewConsole.ShowMenu();
+            _myViewConsole.TimeableAeroportEvent += MyViewConsoleTimeableAeroportEvent;
+            _myViewConsole.MainMenuEvent += MyViewConsoleMainMenu;
+            _myViewConsole.CityAeroportMenuEvent += MyViewConsoleCityAeroportMenuMenu;
+            _myViewConsole.MenuOfAeroportEvent += MyViewConsoleMenuOfAeroportEvent;
+            _myViewConsole.PlaneEvent += MyViewConsolePlaneEvent;
+            _myViewConsole.MenuOfDepart += MyViewConsoleMenuOfDepart;
+            _myViewConsole.MenuOfPlaneEvent += MyViewConsoleMenuOfPlaneEvent;
+            _myViewConsole.TimeablePlaneEvent += MyViewConsoleTimeablePlaneEvent;
+            _myViewConsole.CountOfCustomersEvent += MyViewConsoleCountOfCustomersEvent;
+            _myViewConsole.ShowMenu();
         }
         public void Stop()
         {
-            MyViewConsole.MenuOfDepart -= MyViewConsole_MenuOfDepart;
-            MyViewConsole.TimeableAeroportEvent -= MyViewConsole_TimeableAeroportEvent;
-            MyViewConsole.MainMenuEvent -= MyViewConsole_MainMenu;
-            MyViewConsole.CityAeroportMenuEvent -= MyViewConsole_CityAeroportMenuMenu;
-            MyViewConsole.MenuOfAeroportEvent -= MyViewConsole_MenuOfAeroportEvent;
-            MyViewConsole.PlaneEvent -= MyViewConsole_PlaneEvent;
-            MyViewConsole.MenuOfPlaneEvent -= MyViewConsole_MenuOfPlaneEvent;
-            MyViewConsole.CountOfCustomersEvent -= MyViewConsole_CountOfCustomersEvent;
+            _myViewConsole.MenuOfDepart -= MyViewConsoleMenuOfDepart;
+            _myViewConsole.TimeableAeroportEvent -= MyViewConsoleTimeableAeroportEvent;
+            _myViewConsole.MainMenuEvent -= MyViewConsoleMainMenu;
+            _myViewConsole.CityAeroportMenuEvent -= MyViewConsoleCityAeroportMenuMenu;
+            _myViewConsole.MenuOfAeroportEvent -= MyViewConsoleMenuOfAeroportEvent;
+            _myViewConsole.PlaneEvent -= MyViewConsolePlaneEvent;
+            _myViewConsole.MenuOfPlaneEvent -= MyViewConsoleMenuOfPlaneEvent;
+            _myViewConsole.CountOfCustomersEvent -= MyViewConsoleCountOfCustomersEvent;
+            _myViewConsole.TimeablePlaneEvent -= MyViewConsoleTimeablePlaneEvent;
         }
-        private void MyViewConsole_CountOfCustomersEvent(int countOfCustomers)                                                                     
+        private void MyViewConsoleCountOfCustomersEvent(int countOfCustomers)                                                                     
         {
             if (countOfCustomers < UserAeroport.GetCountOfLitsWithPeopleInAeroport())
             {
@@ -60,7 +63,7 @@ namespace Project_Airline_info_MainAcademy
 
                         UserPlane.AddToList(person);
 
-                        MyViewConsole.ShowAddedPersonToList(person);
+                        _myViewConsole.ShowAddedPersonToList(person);
                     }
                     else if (person.PersonsPurse > UserPlane.PriceBusiness.TicketPrice)
                     {
@@ -69,7 +72,7 @@ namespace Project_Airline_info_MainAcademy
 
                         UserPlane.AddToList(person);
 
-                        MyViewConsole.ShowAddedPersonToList(person);
+                        _myViewConsole.ShowAddedPersonToList(person);
                     }
                     else if (person.PersonsPurse > UserPlane.PriceEconomy.TicketPrice)
                     {
@@ -78,49 +81,49 @@ namespace Project_Airline_info_MainAcademy
 
                         UserPlane.AddToList(person);
 
-                        MyViewConsole.ShowAddedPersonToList(person);
+                        _myViewConsole.ShowAddedPersonToList(person);
                     }
                     countOfCustomers--;
                 }
                 UserAeroport.RemoveFromListWithPeople(UserPlane.ListOfPeople);
 
-                MyViewConsole.ShowEndedOFSentence();
+                _myViewConsole.ShowEndedOFSentence();
                 UserPlane.SetStatusOfFly(StatusOfFly.GateClosed);
             }
             else
             {
-                MyViewConsole.ShowErrorOFBuyTicket(countOfCustomers);
+                _myViewConsole.ShowErrorOFBuyTicket(countOfCustomers);
             }
         }
-        private void MyViewConsole_MenuOfPlaneEvent(int UserNumber)
+        private void MyViewConsoleMenuOfPlaneEvent(int UserNumber)
         {
             switch (UserNumber)
             {
                 case 1:
-                    MyViewConsole.ShowPeopleWhoWantToFly(UserAeroport);
-                    MyViewConsole.MenuForPlane(UserPlane , UserAeroport);
+                    _myViewConsole.ShowPeopleWhoWantToFly(UserAeroport);
+                    _myViewConsole.MenuForPlane(UserPlane);
                     break;
                 case 2:
-                    MyViewConsole.SellTicket(UserPlane, UserAeroport);
+                    _myViewConsole.SellTicket();
                     //SellTicket(TempPlane, aeroport);
 
-                    MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
+                    _myViewConsole.MenuForPlane(UserPlane);
                     break;
 
                 case 3:
 
-                    MyViewConsole.TimetableAboutPLane(UserPlane);
-                    MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
+                    _myViewConsole.TimetableAboutPLane(UserPlane);
+                    _myViewConsole.MenuForPlane(UserPlane);
                     break;
 
                 case 4:
-                    MyViewConsole.InfoAboutPlane(UserPlane);
-                    MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
+                    _myViewConsole.InfoAboutPlane(UserPlane);
+                    _myViewConsole.MenuForPlane(UserPlane);
 
                     break;
 
                 case 5:
-                    MyViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(UserAeroport);
                     break;
 
                 default:
@@ -129,65 +132,65 @@ namespace Project_Airline_info_MainAcademy
 
             }
         }
-        private void MyViewConsole_MenuOfDepart(int Num)
+        private void MyViewConsoleMenuOfDepart(int Num)
         {
-            UserAdmin.DepartDepartThePlaneToNextAeroport(Num,UserAeroport);
-            MyViewConsole.ShowDepartsTime(UserPlane, UserAeroport);
+            _userAdmin.DepartDepartThePlaneToNextAeroport(Num,UserAeroport);
+            _myViewConsole.ShowDepartsTime(UserPlane, UserAeroport);
         }
-        private void MyViewConsole_TimeableAeroportEvent(AeroportModel TempAeroport)
+        private void MyViewConsoleTimeableAeroportEvent(AeroportModel TempAeroport)
         {
-            MyViewConsole.PrintTimetableForAeroport(TempAeroport, TimetableModel.Timetables);
+            _myViewConsole.PrintTimetableForAeroport(TempAeroport, TimetableModel.Timetables);
         }
-        private void MyViewConsole_TimeablePlaneEvent(PlaneModel plane)
+        private void MyViewConsoleTimeablePlaneEvent(PlaneModel plane)
         {
-            MyViewConsole.PrintTimetableForPlane(plane, TimetableModel.Timetables);
+            _myViewConsole.PrintTimetableForPlane(plane, TimetableModel.Timetables);
         }
-        private void MyViewConsole_PlaneEvent(int NumOfPlane)
+        private void MyViewConsolePlaneEvent(int NumOfPlane)
         {
             UserPlane = UserAeroport.FindThePlaneWithIndex(NumOfPlane);
             if(UserPlane == null)
             {
-                MyViewConsole.ErrorOfPlane();
+                _myViewConsole.ErrorOfPlane();
             }
             else
             {
-                MyViewConsole.MenuForPlane(UserPlane, UserAeroport);
+                _myViewConsole.MenuForPlane(UserPlane);
             }
            
             
         } 
-        private void MyViewConsole_MenuOfAeroportEvent(int UsersNum)
+        private void MyViewConsoleMenuOfAeroportEvent(int UsersNum)
         {
             switch (UsersNum)
             {
                 case 1:
-                    UserAeroport = MyStorage.FindTheAeroportWithIndex(UsersNum);
-                    MyViewConsole.MenuToEachPlaneInAeroport(UserAeroport);
+                    UserAeroport = _myStorage.FindTheAeroportWithIndex(UsersNum);
+                    _myViewConsole.MenuToEachPlaneInAeroport(UserAeroport);
                     break;
 
                 case 2:
-                    MyViewConsole.ViewDepartThePlaneToNextAeroport(UserAeroport);
-                    MyViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ViewDepartThePlaneToNextAeroport(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(UserAeroport);
                     break;
 
                 case 3:
-                    MyViewConsole.ShowInfoAboutAeroport(UserAeroport);
-                    MyViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ShowInfoAboutAeroport(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(UserAeroport);
                     break;
 
                 case 4:
 
-                    MyViewConsole.AllInfoAboutPlane(UserAeroport);
-                    MyViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.AllInfoAboutPlane(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(UserAeroport);
                     break;
 
                 case 5:
-                    MyViewConsole.ShowTimetableAboutAeroport(UserAeroport);
-                    MyViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ShowTimetableAboutAeroport(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(UserAeroport);
                     break;
 
                 case 6:
-                    MyViewConsole.MenuCityWithAeroport();
+                    _myViewConsole.MenuCityWithAeroport();
                     break;
                 default:
                     break;
@@ -196,33 +199,33 @@ namespace Project_Airline_info_MainAcademy
           
 
         }
-        private void MyViewConsole_MainMenu(int UsersChoise)
+        private void MyViewConsoleMainMenu(int UsersChoise)
         {
             switch (UsersChoise)
             {
                 case 1:
-                   
-                    MyViewConsole.MenuCityWithAeroport();
+
+                    _myViewConsole.MenuCityWithAeroport();
                     break;
 
                 case 2:
-                    MyViewConsole.SayBye();
+                    _myViewConsole.SayBye();
                     break;
 
                 default:
                     break;
             }
         }
-        private void MyViewConsole_CityAeroportMenuMenu(int UsersNumber)
+        private void MyViewConsoleCityAeroportMenuMenu(int UsersNumber)
         {
-            if(UsersNumber < MyStorage.Aeroports.Count)
+            if(UsersNumber < _myStorage.aeroports.Count)
             {
-                UserAeroport = MyStorage.FindTheAeroportWithIndex(UsersNumber);
-                MyViewConsole.MenuOfAeroport(UserAeroport);
+                UserAeroport = _myStorage.FindTheAeroportWithIndex(UsersNumber);
+                _myViewConsole.MenuOfAeroport(UserAeroport);
             }
             else
             {
-                MyViewConsole.ShowMenu();
+                _myViewConsole.ShowMenu();
             }
         }
     }

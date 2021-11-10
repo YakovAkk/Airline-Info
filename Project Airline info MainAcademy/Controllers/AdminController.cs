@@ -9,7 +9,7 @@ namespace Project_Airline_info_MainAcademy
 {
     class AdminController
     {
-        public SingleStorage MyStorage { get; private set; }
+        private readonly SingleStorage MyStorage;
 
         ViewConsole MyViewConsole = new ViewConsole();
         // constructor
@@ -17,7 +17,6 @@ namespace Project_Airline_info_MainAcademy
         {
             MyStorage = SingleStorage.GetInstance();
         }
-
         public void DepartDepartThePlaneToNextAeroport(int NumOfPlane, AeroportModel TempAeroport)
         {
             if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
@@ -57,9 +56,6 @@ namespace Project_Airline_info_MainAcademy
                 TempPlane.SetStatusOfFly(StatusOfFly.Arrived);
             });
         }
-
-        
-
         private int Initialization(string Message = "")
         {
             int valueUser;

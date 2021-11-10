@@ -18,13 +18,13 @@ namespace Project_Airline_info_MainAcademy
         public List<PersonModel> PeopleInAeroport { get; private set; }
 
         //constructor
-        public AeroportModel(string NameOfAeroport, int countOfPlace)
+        public AeroportModel(string NameOfAeroport, int CountOfPlace)
         {
             PlaceForPlane = new List<PlaneModel>();
             PeopleInAeroport = new List<PersonModel>();
             CountOfPeopleInArroport = UsersRandom.Next(MinPeople, MaxPeople);
             this.NameOfAeroport = NameOfAeroport;
-            this.CountOfPlace = countOfPlace;
+            this.CountOfPlace = CountOfPlace;
             PeopleInAeroport = GetSomePeople();
 
         }
@@ -48,22 +48,22 @@ namespace Project_Airline_info_MainAcademy
         {
             return PlaceForPlane;
         }
-        public void RemoveFromListWithPeople(List<PersonModel> people)
+        public void RemoveFromListWithPeople(List<PersonModel> People)
         {
-            foreach (var person in people)
+            foreach (var Person in People)
             {
-                PeopleInAeroport.Remove(person);
+                PeopleInAeroport.Remove(Person);
             }
         }
         public int GetCountOfLitsWithPeopleInAeroport()
         {
             return PeopleInAeroport.Count();
         }
-        public PlaneModel FindThePlaneWithIndex(int index)
+        public PlaneModel FindThePlaneWithIndex(int Index)
         {
-            if (index <= CountOfPlane() && index > 0)
+            if (Index <= CountOfPlane() && Index > 0)
             {
-                return PlaceForPlane.ElementAt(index - 1);
+                return PlaceForPlane.ElementAt(Index - 1);
                 
             }
             else
@@ -74,11 +74,11 @@ namespace Project_Airline_info_MainAcademy
         }
 
         // methoods Listvwith plane
-        public void AddPlaneToAeroport(PlaneModel plane)
+        public void AddPlaneToAeroport(PlaneModel Plane)
         {
             if(CountOfPlane() < CountOfPlace)
             {
-                PlaceForPlane.Add(plane);
+                PlaceForPlane.Add(Plane);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace Project_Airline_info_MainAcademy
             }
             
         }
-        public void RemovePlaneFromAeroport(PlaneModel plane)
+        public void RemovePlaneFromAeroport(PlaneModel Plane)
         {      
             if(CountOfPlane() == 0)
             {
@@ -94,9 +94,9 @@ namespace Project_Airline_info_MainAcademy
             }
             else
             {
-                if (PlaceForPlane.Contains(plane))
+                if (PlaceForPlane.Contains(Plane))
                 {
-                    PlaceForPlane.Remove(plane);
+                    PlaceForPlane.Remove(Plane);
                 }
                 else
                 {
@@ -112,11 +112,11 @@ namespace Project_Airline_info_MainAcademy
         }
         public void AllInfoAboutPlane()
         {
-            int count = 1;
-            foreach (var plane in PlaceForPlane)
+            int Count = 1;
+            foreach (var Plane in PlaceForPlane)
             {
-                Console.WriteLine( $"{count}) " + plane.ToString());
-                count++;
+                Console.WriteLine( $"{Count}) " + Plane.ToString());
+                Count++;
             }
         }
         public override string ToString()

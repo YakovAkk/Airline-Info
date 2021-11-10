@@ -69,7 +69,7 @@
     <Compile Include="Models\PassportModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\PlaneModel.cs" />
-    <Compile Include="Storage\Singlegon %28 anti Pattern%29.cs" />
+    <Compile Include="Storage\Singlegon.cs" />
     <Compile Include="Views\ViewConsole.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

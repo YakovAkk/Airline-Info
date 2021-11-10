@@ -8,9 +8,9 @@ namespace Project_Airline_info_MainAcademy
 {
     class PassportModel
     {
-        private static string[] ArrFirstName = new ParseModel().ParseJsonFile("First Name.json");
-        private static string[] ArrSecondName = new ParseModel().ParseJsonFile("Second Name.json");
-        private static string[] ArrNationality = new ParseModel().ParseJsonFile("Nationality.json");
+        private static string[] ArrFirstName ;
+        private static string[] ArrSecondName ;
+        private static string[] ArrNationality ;
 
         private static Random UsersRandom = new Random();
         public string FirstName { get; private set; }
@@ -23,6 +23,12 @@ namespace Project_Airline_info_MainAcademy
         
         public PassportModel()
         {
+
+            ArrFirstName = new ParseModel().ParseJsonFile("First Name.json");
+            ArrSecondName = new ParseModel().ParseJsonFile("Second Name.json");
+            ArrNationality = new ParseModel().ParseJsonFile("Nationality.json");
+
+
             FirstName = RandFirstName();
             SecondName = RandSecondName();
             Nationality = RandNationality();

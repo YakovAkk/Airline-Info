@@ -41,7 +41,7 @@ namespace Project_Airline_info_MainAcademy
             CityAeroportMenuEvent(NumOfAeroport);
 
         }
-        public void MenuForPlane(PlaneModel TempPlane, AeroportModel aeroport)
+        public void MenuForPlane(PlaneModel TempPlane)
         {
            Console.Clear();
            Console.WriteLine("===========================================================");
@@ -54,7 +54,6 @@ namespace Project_Airline_info_MainAcademy
         }
 
         // Messages To user
-
         public void ShowErrorOfArrived()
         {
             Console.Clear();
@@ -103,14 +102,14 @@ namespace Project_Airline_info_MainAcademy
             Console.Write("Enter something...");
             Console.ReadKey();
         }
-        public void ShowPeopleWhoWantToFly(AeroportModel aeroport)
+        public void ShowPeopleWhoWantToFly(AeroportModel Aeroport)
         {
             Console.Clear();
 
             var NumberOfPerson = 1;
-            foreach (var person in aeroport.GetListWithPeopleInAeroport())
+            foreach (var Person in Aeroport.GetListWithPeopleInAeroport())
             {
-                Console.WriteLine($"{NumberOfPerson++}) {person.ToString()}");
+                Console.WriteLine($"{NumberOfPerson++}) {Person.ToString()}");
                 Console.WriteLine("===============================");
             }
             Console.Write("Enter something...");
@@ -218,15 +217,15 @@ namespace Project_Airline_info_MainAcademy
             MenuOfDepart(NumOfPlane);
 
         }
-        public void AllInfoPassagers(PlaneModel plane)
+        public void AllInfoPassagers(PlaneModel Plane)
         {
-            if (plane.CountPassagersInsideEconomyClass > 0)
+            if (Plane.CountPassagersInsideEconomyClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Economy Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                InfoListAboutClassesFromPlane(plane, ClassFromPlane.Economy);
+                InfoListAboutClassesFromPlane(Plane, ClassFromPlane.Economy);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -238,13 +237,13 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            if (plane.CountPassagersInsideBusinessClass > 0)
+            if (Plane.CountPassagersInsideBusinessClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Business Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                InfoListAboutClassesFromPlane(plane,ClassFromPlane.Business);
+                InfoListAboutClassesFromPlane(Plane,ClassFromPlane.Business);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -256,13 +255,13 @@ namespace Project_Airline_info_MainAcademy
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
             }
-            if (plane.CountPassagersInsideFirstClass > 0)
+            if (Plane.CountPassagersInsideFirstClass > 0)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("First Class : ");
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                InfoListAboutClassesFromPlane(plane, ClassFromPlane.First);
+                InfoListAboutClassesFromPlane(Plane, ClassFromPlane.First);
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
@@ -276,11 +275,11 @@ namespace Project_Airline_info_MainAcademy
             }
 
         }
-        private void InfoListAboutClassesFromPlane(PlaneModel plane , ClassFromPlane classFromPlaneModel )
+        private void InfoListAboutClassesFromPlane(PlaneModel Plane , ClassFromPlane ClassFromPlaneModel )
         {
-            foreach (var PersonFormEconomyClass in plane.ListOfPeople)
+            foreach (var PersonFormEconomyClass in Plane.ListOfPeople)
             {
-                if (PersonFormEconomyClass.PersonsTicket.ClassTicket == classFromPlaneModel)
+                if (PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlaneModel)
                 {
                     Console.WriteLine(PersonFormEconomyClass);
                     Console.WriteLine("---------------------");
@@ -288,7 +287,7 @@ namespace Project_Airline_info_MainAcademy
 
             }
         }
-        public void SellTicket(PlaneModel TempPlane, AeroportModel aeroport)
+        public void SellTicket()
         {
             Console.Clear();
             Console.WriteLine("How many people do you want to sell tickets?");
@@ -297,10 +296,10 @@ namespace Project_Airline_info_MainAcademy
 
         }
 
-        public void ShowAddedPersonToList(PersonModel person)
+        public void ShowAddedPersonToList(PersonModel Person)
         {
             Console.WriteLine("================================");
-            Console.WriteLine($"\n{person.ToString()} was append to plane into Business class");
+            Console.WriteLine($"\n{Person.ToString()} was append to plane into Business class");
         }
         public void ShowEndedOFSentence()
         {

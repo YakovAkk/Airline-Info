@@ -12,7 +12,6 @@ namespace Project_Airline_info_MainAcademy
         public StatusOfFly StatusOfFly { get; private set; }
         private static int CountOfPlane = 0;
         private int NumOfPlane = 0;
-
         public string NameOfPlane { get;private set; }
         // count of place in every class
         public int MaxPlaceFirstClass { get; private set; }
@@ -29,12 +28,9 @@ namespace Project_Airline_info_MainAcademy
         public TicketOnPlaneModel PriceFirst { get; private set; }
         public TicketOnPlaneModel PriceBusiness { get; private set; }
         public TicketOnPlaneModel PriceEconomy { get; private set; }
-
-
         // lists with person in everyone class
         public List<PersonModel> ListOfPeople { get; private set; }
         //constructor
-
         public PlaneModel(string NameOfPlane , int MaxPlaceEcomomyClass, int MaxPlaceBusinessClass , int MaxPlaceFirstClass)
         {
             PriceFirst = new TicketOnPlaneModel(ClassFromPlane.First,new PurseModel(CurrencyType.USD, 200));
@@ -75,8 +71,6 @@ namespace Project_Airline_info_MainAcademy
             }
             
         }
-
-
         // remove person in class list 
         public void RemoveFromList(PersonModel person)
         {
@@ -91,8 +85,6 @@ namespace Project_Airline_info_MainAcademy
         {
             return $"Plane {NameOfPlane} with Number {NumOfPlane}  Status {StatusOfFly}";
         }
-
-      
         public void SetStatusOfFly(StatusOfFly StatusOfFly)
         {
             this.StatusOfFly = StatusOfFly;
@@ -102,5 +94,8 @@ namespace Project_Airline_info_MainAcademy
             return MaxPlaceBusinessClass + MaxPlaceEcomomyClass + MaxPlaceFirstClass -
                 CountPassagersInsideEconomyClass - CountPassagersInsideBusinessClass - CountPassagersInsideFirstClass;
         }
+
+        
     }
+
 }

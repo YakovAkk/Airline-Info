@@ -79,22 +79,21 @@ namespace Project_Airline_info_MainAcademy
         {
             return MoneyConvertor(TypeOfMoney);
         }
-
         public override string ToString()
         {
             return $"Type of money is {CurrencyType.UAH}. " + $"Balance is {this.Amount}";
         }
-        public static PurseModel operator +(PurseModel one, PurseModel two)
+        public static PurseModel operator +(PurseModel One, PurseModel Two)
         {
-            return new PurseModel(CurrencyType.UAH, one.Amount + two.Amount);
+            return new PurseModel(CurrencyType.UAH, One.Amount + Two.Amount);
         }
-        public static PurseModel operator -(PurseModel one, PurseModel two)
+        public static PurseModel operator -(PurseModel One, PurseModel Two)
         {
-            return new PurseModel(CurrencyType.UAH, one.Amount - two.Amount);
+            return new PurseModel(CurrencyType.UAH, One.Amount - Two.Amount);
         }
-        public static bool operator < (PurseModel one, PurseModel two)
+        public static bool operator < (PurseModel One, PurseModel Two)
         {
-            if(one.GetBalance() < two.GetBalance())
+            if(One.GetBalance() < Two.GetBalance())
             {
                 return true;
             }
@@ -103,9 +102,9 @@ namespace Project_Airline_info_MainAcademy
                 return false;
             }
         }
-        public static bool operator > (PurseModel one, PurseModel two)
+        public static bool operator > (PurseModel One, PurseModel Two)
         {
-            if (one.GetBalance() < two.GetBalance())
+            if (One.GetBalance() < Two.GetBalance())
             {
                 return false;
             }

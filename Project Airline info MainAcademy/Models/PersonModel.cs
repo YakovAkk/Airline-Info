@@ -25,7 +25,7 @@ namespace Project_Airline_info_MainAcademy
             return PersonsPassport.ToString() + "\n" + $"i will fly {PersonsTicket.ClassTicket}\nI have {PersonsPurse.ToString()}";
         }
         public void ToBuy(PurseModel OtherPurse)
-        {
+        {   
             if (PersonsPurse.GetBalance() > OtherPurse.GetBalance())
             {
                 PersonsPurse = PersonsPurse - OtherPurse;
