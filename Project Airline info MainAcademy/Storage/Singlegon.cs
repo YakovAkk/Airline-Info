@@ -11,7 +11,7 @@ namespace Project_Airline_info_MainAcademy.Storage
         public TimetableModel timetable { get; }
         public List<AeroportModel> aeroports { get; }
         public List<PlaneModel> allPlanes { get; }
-        private static SingleStorage myStorage { get; set; }
+        private static SingleStorage myStorage;
         private SingleStorage()
         {
             aeroports = new List<AeroportModel>();

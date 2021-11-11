@@ -12,8 +12,8 @@ namespace Project_Airline_info_MainAcademy
         private readonly SingleStorage _myStorage;
         private readonly AdminController _userAdmin;
         private readonly ViewConsole _myViewConsole;
-        private PlaneModel _userPlane { get; set; }
-        private AeroportModel _userAeroport { get; set; } 
+        private PlaneModel _userPlane;
+        private AeroportModel _userAeroport;
         public MainController()
         {
             _userAdmin = new AdminController();
