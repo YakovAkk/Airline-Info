@@ -10,10 +10,10 @@ namespace Project_Airline_info_MainAcademy
     class MainController
     {
         private readonly SingleStorage _myStorage;
-        private static AdminController _userAdmin;
-        private ViewConsole _myViewConsole;
-        private PlaneModel UserPlane { get; set; }
-        private AeroportModel UserAeroport { get; set; } 
+        private readonly AdminController _userAdmin;
+        private readonly ViewConsole _myViewConsole;
+        private PlaneModel _userPlane { get; set; }
+        private AeroportModel _userAeroport { get; set; } 
         public MainController()
         {
             _userAdmin = new AdminController();
@@ -47,48 +47,48 @@ namespace Project_Airline_info_MainAcademy
         }
         private void MyViewConsoleCountOfCustomersEvent(int countOfCustomers)                                                                     
         {
-            if (countOfCustomers < UserAeroport.GetCountOfLitsWithPeopleInAeroport())
+            if (countOfCustomers < _userAeroport.GetCountOfLitsWithPeopleInAeroport())
             {
 
-                foreach (var person in UserAeroport.GetListWithPeopleInAeroport())
+                foreach (var person in _userAeroport.GetListWithPeopleInAeroport())
                 {
                     if (countOfCustomers == 0)
                     {
                         break;
                     }
-                    if (person.PersonsPurse > UserPlane.PriceFirst.TicketPrice)
+                    if (person.PersonsPurse > _userPlane.PriceFirst.TicketPrice)
                     {
-                        person.ToBuy(UserPlane.PriceFirst.TicketPrice);
+                        person.ToBuy(_userPlane.PriceFirst.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.First);
 
-                        UserPlane.AddToList(person);
+                        _userPlane.AddToList(person);
 
                         _myViewConsole.ShowAddedPersonToList(person);
                     }
-                    else if (person.PersonsPurse > UserPlane.PriceBusiness.TicketPrice)
+                    else if (person.PersonsPurse > _userPlane.PriceBusiness.TicketPrice)
                     {
-                        person.ToBuy(UserPlane.PriceBusiness.TicketPrice);
+                        person.ToBuy(_userPlane.PriceBusiness.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.Business);
 
-                        UserPlane.AddToList(person);
+                        _userPlane.AddToList(person);
 
                         _myViewConsole.ShowAddedPersonToList(person);
                     }
-                    else if (person.PersonsPurse > UserPlane.PriceEconomy.TicketPrice)
+                    else if (person.PersonsPurse > _userPlane.PriceEconomy.TicketPrice)
                     {
-                        person.ToBuy(UserPlane.PriceEconomy.TicketPrice);
+                        person.ToBuy(_userPlane.PriceEconomy.TicketPrice);
                         person.PersonsTicket.SetClassTicket(ClassFromPlane.Economy);
 
-                        UserPlane.AddToList(person);
+                        _userPlane.AddToList(person);
 
                         _myViewConsole.ShowAddedPersonToList(person);
                     }
                     countOfCustomers--;
                 }
-                UserAeroport.RemoveFromListWithPeople(UserPlane.ListOfPeople);
+                _userAeroport.RemoveFromListWithPeople(_userPlane.ListOfPeople);
 
                 _myViewConsole.ShowEndedOFSentence();
-                UserPlane.SetStatusOfFly(StatusOfFly.GateClosed);
+                _userPlane.SetStatusOfFly(StatusOfFly.GateClosed);
             }
             else
             {
@@ -100,30 +100,30 @@ namespace Project_Airline_info_MainAcademy
             switch (UserNumber)
             {
                 case 1:
-                    _myViewConsole.ShowPeopleWhoWantToFly(UserAeroport);
-                    _myViewConsole.MenuForPlane(UserPlane);
+                    _myViewConsole.ShowPeopleWhoWantToFly(_userAeroport);
+                    _myViewConsole.MenuForPlane(_userPlane);
                     break;
                 case 2:
                     _myViewConsole.SellTicket();
                     //SellTicket(TempPlane, aeroport);
 
-                    _myViewConsole.MenuForPlane(UserPlane);
+                    _myViewConsole.MenuForPlane(_userPlane);
                     break;
 
                 case 3:
 
-                    _myViewConsole.TimetableAboutPLane(UserPlane);
-                    _myViewConsole.MenuForPlane(UserPlane);
+                    _myViewConsole.TimetableAboutPLane(_userPlane);
+                    _myViewConsole.MenuForPlane(_userPlane);
                     break;
 
                 case 4:
-                    _myViewConsole.InfoAboutPlane(UserPlane);
-                    _myViewConsole.MenuForPlane(UserPlane);
+                    _myViewConsole.InfoAboutPlane(_userPlane);
+                    _myViewConsole.MenuForPlane(_userPlane);
 
                     break;
 
                 case 5:
-                    _myViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.MenuOfAeroport(_userAeroport);
                     break;
 
                 default:
@@ -134,8 +134,8 @@ namespace Project_Airline_info_MainAcademy
         }
         private void MyViewConsoleMenuOfDepart(int Num)
         {
-            _userAdmin.DepartDepartThePlaneToNextAeroport(Num,UserAeroport);
-            _myViewConsole.ShowDepartsTime(UserPlane, UserAeroport);
+            _userAdmin.DepartDepartThePlaneToNextAeroport(Num, _userAeroport);
+            _myViewConsole.ShowDepartsTime(_userPlane, _userAeroport);
         }
         private void MyViewConsoleTimeableAeroportEvent(AeroportModel TempAeroport)
         {
@@ -147,14 +147,14 @@ namespace Project_Airline_info_MainAcademy
         }
         private void MyViewConsolePlaneEvent(int NumOfPlane)
         {
-            UserPlane = UserAeroport.FindThePlaneWithIndex(NumOfPlane);
-            if(UserPlane == null)
+            _userPlane = _userAeroport.FindThePlaneWithIndex(NumOfPlane);
+            if(_userPlane == null)
             {
                 _myViewConsole.ErrorOfPlane();
             }
             else
             {
-                _myViewConsole.MenuForPlane(UserPlane);
+                _myViewConsole.MenuForPlane(_userPlane);
             }
            
             
@@ -164,29 +164,29 @@ namespace Project_Airline_info_MainAcademy
             switch (UsersNum)
             {
                 case 1:
-                    UserAeroport = _myStorage.FindTheAeroportWithIndex(UsersNum);
-                    _myViewConsole.MenuToEachPlaneInAeroport(UserAeroport);
+                    _userAeroport = _myStorage.FindTheAeroportWithIndex(UsersNum);
+                    _myViewConsole.MenuToEachPlaneInAeroport(_userAeroport);
                     break;
 
                 case 2:
-                    _myViewConsole.ViewDepartThePlaneToNextAeroport(UserAeroport);
-                    _myViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ViewDepartThePlaneToNextAeroport(_userAeroport);
+                    _myViewConsole.MenuOfAeroport(_userAeroport);
                     break;
 
                 case 3:
-                    _myViewConsole.ShowInfoAboutAeroport(UserAeroport);
-                    _myViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ShowInfoAboutAeroport(_userAeroport);
+                    _myViewConsole.MenuOfAeroport(_userAeroport);
                     break;
 
                 case 4:
 
-                    _myViewConsole.AllInfoAboutPlane(UserAeroport);
-                    _myViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.AllInfoAboutPlane(_userAeroport);
+                    _myViewConsole.MenuOfAeroport(_userAeroport);
                     break;
 
                 case 5:
-                    _myViewConsole.ShowTimetableAboutAeroport(UserAeroport);
-                    _myViewConsole.MenuOfAeroport(UserAeroport);
+                    _myViewConsole.ShowTimetableAboutAeroport(_userAeroport);
+                    _myViewConsole.MenuOfAeroport(_userAeroport);
                     break;
 
                 case 6:
@@ -220,8 +220,8 @@ namespace Project_Airline_info_MainAcademy
         {
             if(UsersNumber < _myStorage.aeroports.Count)
             {
-                UserAeroport = _myStorage.FindTheAeroportWithIndex(UsersNumber);
-                _myViewConsole.MenuOfAeroport(UserAeroport);
+                _userAeroport = _myStorage.FindTheAeroportWithIndex(UsersNumber);
+                _myViewConsole.MenuOfAeroport(_userAeroport);
             }
             else
             {
