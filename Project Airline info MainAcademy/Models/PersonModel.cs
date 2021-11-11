@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 namespace Project_Airline_info_MainAcademy
 {
     
-    class Person
+    class PersonModel
     {
-        public Passport PersonsPassport { get; private set; }  // contain all data for this person like
+        public PassportModel PersonsPassport { get; private set; }  // contain all data for this person like
                                     // first name , second name , Nationality, NumOfPassport,DateOfBirthday and Sex
-        public TicketOnPlane PersonsTicket { get;private set; } // Class which the person will fly to new city
-        public Purse PersonsPurse { get;private set; } // his/her money
-
+        public TicketOnPlaneModel PersonsTicket { get;private set; } // Class which the person will fly to new city
+        public PurseModel PersonsPurse { get;private set; } // his/her money
         // construcors
-
-        public Person(Passport passport, Purse purse, TicketOnPlane ticket)
+        public PersonModel(PassportModel passport, PurseModel purse, TicketOnPlaneModel ticket)
         {
             PersonsPassport = passport;
             PersonsTicket = ticket;
@@ -26,8 +24,8 @@ namespace Project_Airline_info_MainAcademy
         {
             return PersonsPassport.ToString() + "\n" + $"i will fly {PersonsTicket.ClassTicket}\nI have {PersonsPurse.ToString()}";
         }
-        public void ToBuy(Purse OtherPurse)
-        {
+        public void ToBuy(PurseModel OtherPurse)
+        {   
             if (PersonsPurse.GetBalance() > OtherPurse.GetBalance())
             {
                 PersonsPurse = PersonsPurse - OtherPurse;

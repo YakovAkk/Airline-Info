@@ -61,21 +61,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\Admin.cs" />
-    <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Models\Aeroport.cs" />
-    <Compile Include="Models\CurrencyType.cs" />
-    <Compile Include="Models\Parse.cs" />
-    <Compile Include="Models\Passport.cs" />
-    <Compile Include="Models\Person.cs" />
-    <Compile Include="Models\Plane.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Models\AeroportModel.cs" />
+    <Compile Include="Models\CurrencyTypeModel.cs" />
+    <Compile Include="Models\ParseModel.cs" />
+    <Compile Include="Models\PassportModel.cs" />
+    <Compile Include="Models\PersonModel.cs" />
+    <Compile Include="Models\PlaneModel.cs" />
+    <Compile Include="Storage\Singlegon.cs" />
     <Compile Include="Views\ViewConsole.cs" />
     <Compile Include="Views\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Purse.cs" />
-    <Compile Include="Models\StatusOfFly.cs" />
-    <Compile Include="Models\TicketOnPlane.cs" />
-    <Compile Include="Models\Timetable.cs" />
+    <Compile Include="Models\PurseModel.cs" />
+    <Compile Include="Models\StatusOfFlyModel.cs" />
+    <Compile Include="Models\TicketOnPlaneModel.cs" />
+    <Compile Include="Models\TimetableModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

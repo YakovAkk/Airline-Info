@@ -11,9 +11,10 @@ namespace Project_Airline_info_MainAcademy
     {  
         static void Main(string[] args)
         {
-            var view = new ViewConsole();
-            view.Show();
-            
+            var MainController = new MainController();
+            MainController.Run();
+
+            MainController.Stop();
         }
 
     }

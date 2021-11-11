@@ -8,224 +8,193 @@ namespace Project_Airline_info_MainAcademy
 {
     class ViewConsole
     {
-        private static Admin UserAdmin = new Admin();
-        public event Action<int> CityAeroportMenu = delegate { };
-        Controller controller = new Controller();
-        public void Show()
-        {
-            Console.WriteLine("Good afternoon , you are greetings by Yakov's aeroport company. Do you want to choose city with aeroport?");
-            Console.WriteLine("1) Choose the city with aeroport");
-            Console.WriteLine("2) Exit");
-
-            switch (Initialization("Your choose : "))
-            {
-                case 1:
-
-                    Console.Clear();
-                    MenuCityWithAeroport();
-
-                    break;
-
-                case 2:
-
-                    Console.Clear();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Good Bye! Have a nice day)");
-                    Console.ReadKey();
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-
+        public event Action<int> MainMenuEvent = delegate { };
+        public event Action<int> CityAeroportMenuEvent = delegate { };
+        public event Action<int> MenuOfAeroportEvent = delegate { };
+        public event Action<int> PlaneEvent = delegate { };
+        public event Action<int> MenuOfPlaneEvent = delegate { };
+        public event Action<int> MenuOfDepart = delegate { };
+        public event Action<AeroportModel> TimeableAeroportEvent = delegate { };
+        public event Action<PlaneModel> TimeablePlaneEvent = delegate { };
+        public event Action<int> CountOfCustomersEvent = delegate { };
         // Menu 
-        private  void MenuCityWithAeroport()
+        public void MenuOfAeroport(AeroportModel TempAeroport)
         {
-            var FlagMain = true;
-            while (FlagMain)
-            {
-                Header();
-                var NumOfAeroport = Initialization("Your choose : ");
-                CityAeroportMenu(NumOfAeroport);
-                MenuOfAeroport(controller.AnswerControllerOfEventCityAeroportMenu());
-            }
+            HeaderMenuOfAeroport(TempAeroport);
+            var NumOfAeroport = Initialization("Your choose : ");
+            MenuOfAeroportEvent(NumOfAeroport);
         }
-        private void MenuOfAeroport(Aeroport TempAeroport)
-        {
-            var FlagAero = true;
-            while (FlagAero)
-            {
-                HeaderMenuOfAeroport(TempAeroport);
-                var NumOfPlane = 0; // for contain number of plane
-                switch (Initialization("Your choose : "))
-                {
-                    case 1:
-
-                        NumOfPlane = MenuToEachPlane(TempAeroport);
-
-                        break;
-
-                    case 2:
-
-                        NumOfPlane = DepartThePlaneToNextAeroport(TempAeroport);
-
-                        break;
-
-                    case 3:
-
-                        ShowInfoAboutAeroport(TempAeroport);
-
-                        break;
-
-                    case 4:
-
-                        AllInfoAboutPlane(TempAeroport);
-                        break;
-
-                    case 5:
-
-                        ShowTimetableAboutAeroport(TempAeroport);
-
-                        break;
-
-                    case 6:
-                        Console.Clear();
-                        FlagAero = false;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        }
-        private  int MenuToEachPlane(Aeroport TempAeroport)
+        public void MenuToEachPlaneInAeroport(AeroportModel TempAeroport)
         {
             int NumOfPlane;
             Console.Clear();
             TempAeroport.AllInfoAboutPlane();
             NumOfPlane = Initialization("Choose The plane : ");
-
-            if (NumOfPlane <= TempAeroport.CountOfPlane() && NumOfPlane > 0)
-            {
-                var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
-                MenuForPlane(TempPlane, TempAeroport);
-            }
-            else
-            {
-                Console.WriteLine("Aeroport doesn't contain this plane ");
-            }
-
-            return NumOfPlane;
+            PlaneEvent(NumOfPlane);
         }
-        private void MenuForPlane(Plane TempPlane, Aeroport aeroport)
-        {
-            var FlagMenuOfPlane = true;
-            while (FlagMenuOfPlane)
-            {
-                Console.Clear();
-                Console.WriteLine("===========================================================");
-                Console.WriteLine($"Your choose {TempPlane.ToString()}");
-                Console.WriteLine("===========================================================");
-                HeaderForPlaneMenu();
-
-                switch (Initialization("Your choose : "))
-                {
-                    case 1:
-
-                        ShowPeopleWhoWantToFly(aeroport);
-
-                        break;
-
-                    case 2:
-
-                        SellTicket(TempPlane, aeroport);
-                        break;
-
-                    case 3:
-
-                        TimetableAboutPLane(TempPlane);
-                        break;
-
-                    case 4:
-
-                        InfoAboutPlane(TempPlane);
-
-                        break;
-
-                    case 5:
-
-                        FlagMenuOfPlane = false;
-                        break;
-
-                    default:
-
-                        Console.WriteLine("Menu doesn't contain this topic");
-                        break;
-
-
-                }
-            }
-
-        }
-
-        // Show Info
-        private void InfoAboutPlane(Plane TempPlane)
+        public void MenuCityWithAeroport()
         {
             Console.Clear();
-            TempPlane.AllInfoPassagers();
+
+            Header();
+            var NumOfAeroport = Initialization("Your choose : ");
+            CityAeroportMenuEvent(NumOfAeroport);
+
+        }
+        public void MenuForPlane(PlaneModel TempPlane)
+        {
+           Console.Clear();
+           Console.WriteLine("===========================================================");
+           Console.WriteLine($"Your choose {TempPlane.ToString()}");
+           Console.WriteLine("===========================================================");
+           HeaderForPlaneMenu();
+
+           var UserNum = (Initialization("Your choose : "));
+           MenuOfPlaneEvent(UserNum);
+        }
+
+        // Messages To user
+        public void ShowErrorOfArrived()
+        {
+            Console.Clear();
+            Console.WriteLine("This plane doesn't ready to fly");
+            Console.Write("Enter something ... ");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public void ShowMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Good afternoon , you are greetings by Yakov's aeroport company. Do you want to choose city with aeroport?");
+            Console.WriteLine("1) Choose the city with aeroport");
+            Console.WriteLine("2) Exit");
+
+            var UserNum = Initialization("Your Choose: ");
+
+            MainMenuEvent(UserNum);
+        }
+        public void SayBye()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Good Bye! Have a nice day)");
+            Console.ReadKey();
+
+            return;
+        }
+        public void ShowArrivedOfPlane()
+        {
+            Console.Clear();
+            Console.WriteLine("Plane will be flown to aeroport, choose it ");
+            Header();
+        }
+        public void ErrorOfPlane()
+        {
+            Console.WriteLine("Aeroport doesn't contain this plane ");
+        }
+
+        //// Show Info
+        public void InfoAboutPlane(PlaneModel TempPlane)
+        {
+            Console.Clear();
+            AllInfoPassagers(TempPlane);
 
             Console.Write("Enter something...");
             Console.ReadKey();
         }
-        private  void ShowPeopleWhoWantToFly(Aeroport aeroport)
+        public void ShowPeopleWhoWantToFly(AeroportModel Aeroport)
         {
             Console.Clear();
 
             var NumberOfPerson = 1;
-            foreach (var person in aeroport.GetListWithPeopleInAeroport())
+            foreach (var Person in Aeroport.GetListWithPeopleInAeroport())
             {
-                Console.WriteLine($"{NumberOfPerson++}) {person.ToString()}");
+                Console.WriteLine($"{NumberOfPerson++}) {Person.ToString()}");
                 Console.WriteLine("===============================");
             }
             Console.Write("Enter something...");
             Console.ReadKey();
             Console.Clear();
         }
-        private  void TimetableAboutPLane(Plane TempPlane)
+        public void TimetableAboutPLane(PlaneModel TempPlane)
         {
             Console.Clear();
-            Timetable.PrintTimetableForPlane(TempPlane);
+
+            TimeablePlaneEvent(TempPlane);
+            //Timetable.PrintTimetableForPlane(TempPlane);
             Console.WriteLine("Enter something...");
             Console.ReadKey();
+
+            Console.Clear();
         }
-        private void ShowTimetableAboutAeroport(Aeroport TempAeroport)
+        public void ShowTimetableAboutAeroport(AeroportModel TempAeroport)
         {
             Console.Clear();
-            Timetable.PrintTimetableForAeroport(TempAeroport);
+            TimeableAeroportEvent(TempAeroport);
+
             Console.WriteLine("Enter something...");
             Console.ReadKey();
+            Console.Clear();
         }
-        private void AllInfoAboutPlane(Aeroport TempAeroport)
+        public void AllInfoAboutPlane(AeroportModel TempAeroport)
         {
             Console.WriteLine("===============================");
             TempAeroport.AllInfoAboutPlane();
             Console.WriteLine("===============================");
 
             Console.ReadKey();
+
+            Console.Clear();
         }
-        private  void ShowInfoAboutAeroport(Aeroport TempAeroport)
+        public void ShowInfoAboutAeroport(AeroportModel TempAeroport)
         {
             Console.WriteLine("===============================");
             Console.WriteLine(TempAeroport.ToString());
             Console.WriteLine("===============================");
             Console.ReadKey();
         }
+        public void PrintTimetableForAeroport(AeroportModel TempAeroports , List<TimetableModel> Timetables)
+        {
+            foreach (var Timetable in Timetables)
+            {
+                if (Timetable.StartPoint == TempAeroports.NameOfAeroport || Timetable.EndPoint == TempAeroports.NameOfAeroport)
+                {
+                    Console.WriteLine(Timetable.ToString());
+                    Console.WriteLine("================================================");
+                }
+            }
+        }
+        public void PrintTimetableForPlane(PlaneModel TempPlane , List<TimetableModel> Timetables)
+        {
+            foreach (var Timetable in Timetables)
+            {
+                if (Timetable.NameOfPlane == TempPlane.NameOfPlane)
+                {
+                    Console.WriteLine(Timetable.ToString());
+                    Console.WriteLine("================================================");
+                }
+            }
+        }
 
-
-        // Headers
-        private  void HeaderMenuOfAeroport(Aeroport TempAeroport)
+        //// Headers
+        private void Header()
+        {
+            Console.WriteLine("1) Boryspil airport");
+            Console.WriteLine("2) Lviv airport");
+            Console.WriteLine("3) airport Kiev");
+            Console.WriteLine("4) Odessa airport");
+            Console.WriteLine("5) Kharkiv airport");
+            Console.WriteLine("6) Exit");
+        }
+        private void HeaderForPlaneMenu()
+        {
+            Console.WriteLine("1) People who want to buy tickets in plane will be shown");
+            Console.WriteLine("2) Sell tickets for people on the plane");
+            Console.WriteLine("3) Timetable for this plane will be shown");
+            Console.WriteLine("4) Show people who inside the plane");
+            Console.WriteLine("5) Exit");
+        }
+        private void HeaderMenuOfAeroport(AeroportModel TempAeroport)
         {
             Console.Clear();
             Console.WriteLine(TempAeroport.ToString());
@@ -237,128 +206,122 @@ namespace Project_Airline_info_MainAcademy
             Console.WriteLine("5) Timetable for this Aeroport will be shown");
             Console.WriteLine("6) Show to other aeroport");
         }
-        private  void HeaderForPlaneMenu()
-        {
-            Console.WriteLine("1) People who want to buy tickets in plane will be shown");
-            Console.WriteLine("2) Sell tickets for people on the plane");
-            Console.WriteLine("3) Timetable for this plane will be shown");
-            Console.WriteLine("4) Show people who inside the plane");
-            Console.WriteLine("5) Exit");
-        }
-        private  void Header()
-        {
-            Console.WriteLine("1) Boryspil airport");
-            Console.WriteLine("2) Lviv airport");
-            Console.WriteLine("3) airport Kiev");
-            Console.WriteLine("4) Odessa airport");
-            Console.WriteLine("5) Kharkiv airport");
-            Console.WriteLine("6) Exit");
-        }
-
-        // other Funk
-        private  int DepartThePlaneToNextAeroport(Aeroport TempAeroport)
+        //// other Funk
+        public void ViewDepartThePlaneToNextAeroport(AeroportModel TempAeroport)
         {
             int NumOfPlane;
             Console.Clear();
             TempAeroport.AllInfoAboutPlane();
             NumOfPlane = Initialization("Choose The plane : ");
 
-            if (NumOfPlane < TempAeroport.CountOfPlane() && NumOfPlane > 0)
-            {
-                var TempPlane = TempAeroport.FindThePlaneWithIndex(NumOfPlane);
+            MenuOfDepart(NumOfPlane);
 
-                if (TempPlane.StatusOfFly == StatusOfFly.GateClosed)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Plane will be flown to aeroport, choose it ");
-                    Header();
-
-                    var NumOfAeroport = Initialization("Your choose : ");
-
-
-                    UserAdmin.DepartAtNextAero(TempPlane, UserAdmin.FindTheAeroportWithIndex(NumOfAeroport));
-
-                    TempAeroport.RemovePlaneFromAeroport(TempPlane);
-
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("This plane doesn't ready to fly");
-                    Console.Write("Enter something ... ");
-                    Console.ReadKey();
-                }
-            }
-            else
-            {
-                Console.WriteLine("Aeroport doesn't contain this plane ");
-            }
-
-            return NumOfPlane;
         }
-        private  void SellTicket(Plane TempPlane, Aeroport aeroport)
+        public void AllInfoPassagers(PlaneModel Plane)
         {
-            Console.Clear();
-            Console.WriteLine("How many people do you want to sell tickets?");
-            var countOfCustomers = Initialization("Enter count : ");
-
-            if (countOfCustomers < aeroport.GetCountOfLitsWithPeopleInAeroport())
+            if (Plane.CountPassagersInsideEconomyClass > 0)
             {
-
-                foreach (var person in aeroport.GetListWithPeopleInAeroport())
-                {
-                    if (countOfCustomers == 0)
-                    {
-                        break;
-                    }
-                    if (person.PersonsPurse > TempPlane.PriceFirst.TicketPrice)
-                    {
-                        person.ToBuy(TempPlane.PriceFirst.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlane.First);
-
-                        TempPlane.AddToList(person);
-
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into First class");
-                    }
-                    else if (person.PersonsPurse > TempPlane.PriceBusiness.TicketPrice)
-                    {
-                        person.ToBuy(TempPlane.PriceBusiness.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlane.Business);
-
-                        TempPlane.AddToList(person);
-
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into Business class");
-                    }
-                    else if (person.PersonsPurse > TempPlane.PriceEconomy.TicketPrice)
-                    {
-                        person.ToBuy(TempPlane.PriceEconomy.TicketPrice);
-                        person.PersonsTicket.SetClassTicket(ClassFromPlane.Economy);
-
-                        TempPlane.AddToList(person);
-
-                        Console.WriteLine("================================");
-                        Console.WriteLine($"\n{person.ToString()} was append to plane into Economy class");
-                    }
-                    countOfCustomers--;
-                }
-                aeroport.RemoveFromListWithPeople(TempPlane.ListOfPeople);
-
-                Console.Write("Enter something...");
-                Console.ReadKey();
-                TempPlane.SetStatusOfFly(StatusOfFly.GateClosed);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Economy Class : ");
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+                InfoListAboutClassesFromPlane(Plane, ClassFromPlane.Economy);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"Too many! Aeroport doesn't contain {countOfCustomers} people");
+                Console.WriteLine("Economy class is empty");
+                Console.WriteLine("===========================================================");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("Enter something...");
-                Console.ReadKey();
+            }
+            if (Plane.CountPassagersInsideBusinessClass > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Business Class : ");
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+                InfoListAboutClassesFromPlane(Plane,ClassFromPlane.Business);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Business class is empty");
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            if (Plane.CountPassagersInsideFirstClass > 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("First Class : ");
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+                InfoListAboutClassesFromPlane(Plane, ClassFromPlane.First);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("First class is empty");
+                Console.WriteLine("===========================================================");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+
+        }
+        private void InfoListAboutClassesFromPlane(PlaneModel Plane , ClassFromPlane ClassFromPlaneModel )
+        {
+            foreach (var PersonFormEconomyClass in Plane.ListOfPeople)
+            {
+                if (PersonFormEconomyClass.PersonsTicket.ClassTicket == ClassFromPlaneModel)
+                {
+                    Console.WriteLine(PersonFormEconomyClass);
+                    Console.WriteLine("---------------------");
+                }
+
             }
         }
-        private  int Initialization(string Message = "")
+        public void SellTicket()
+        {
+            Console.Clear();
+            Console.WriteLine("How many people do you want to sell tickets?");
+            var countOfCustomers = Initialization("Enter count : ");
+            CountOfCustomersEvent(countOfCustomers);
+
+        }
+
+        public void ShowAddedPersonToList(PersonModel Person)
+        {
+            Console.WriteLine("================================");
+            Console.WriteLine($"\n{Person.ToString()} was append to plane into Business class");
+        }
+        public void ShowEndedOFSentence()
+        {
+            Console.Write("Enter something...");
+            Console.ReadKey();
+        }
+        public void ShowErrorOFBuyTicket(int countOfCustomers)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Too many! Aeroport doesn't contain {countOfCustomers} people");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Enter something...");
+            Console.ReadKey();
+        }
+        public void ShowDepartsTime(PlaneModel TempPlane, AeroportModel Aeroport)
+        {
+            Console.Clear();
+            Console.WriteLine(TempPlane.ToString() + "Will arrive to " + Aeroport.NameOfAeroport + "in 3 min 20 sec");
+            Console.Write("Enter Something...");
+            Console.ReadKey();
+        }
+        private int Initialization(string Message = "")
         {
             int valueUser;
             while (true)
@@ -386,5 +349,7 @@ namespace Project_Airline_info_MainAcademy
 
             return valueUser;
         }
+
+
     }
 }

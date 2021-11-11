@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class Parse
+    class ParseModel
     {
         public string[] ParseJsonFile(string pathToFile)
         {
             string Allfile = System.IO.File.ReadAllText(pathToFile);
-            dynamic json = System.Web.Helpers.Json.Decode(Allfile);
+            dynamic Json = System.Web.Helpers.Json.Decode(Allfile);
             int W = 0;
 
-            foreach (var item in json.arr)
+            foreach (var Item in Json.arr)
             {
                 W++;
             }
 
             string[] FileContents = new string[W];
-            int counter = 0;
-            foreach (var item in json.arr)
+            int Counter = 0;
+            foreach (var Item in Json.arr)
             {
-                FileContents[counter] = item;
-                counter++;
+                FileContents[Counter] = Item;
+                Counter++;
             }
             return FileContents;
         }

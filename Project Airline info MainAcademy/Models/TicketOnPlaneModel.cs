@@ -14,17 +14,17 @@ namespace Project_Airline_info_MainAcademy
         Business,
         First
     }
-    class TicketOnPlane
+    class TicketOnPlaneModel
     {
         public ClassFromPlane ClassTicket { get; private set; }
-        public Purse TicketPrice { get; private set; }
+        public PurseModel TicketPrice { get; private set; }
 
-        public TicketOnPlane()
+        public TicketOnPlaneModel()
         {
             ClassTicket = ClassFromPlane.None;
-            TicketPrice = new Purse(CurrencyType.UAH, 0);
+            TicketPrice = new PurseModel(CurrencyType.UAH, 0);
         }
-        public TicketOnPlane(ClassFromPlane ClassTicket , Purse TicketPrice)
+        public TicketOnPlaneModel(ClassFromPlane ClassTicket , PurseModel TicketPrice)
         {
             this.ClassTicket = ClassTicket;
             this.TicketPrice = TicketPrice;
