@@ -16,9 +16,15 @@ namespace Project_Airline_info_MainAcademy.Storage
         {
             aeroports = new List<AeroportModel>();
             allPlanes = new List<PlaneModel>();
+
+
             AddAeroports();
             AddPlaneToList();
+
+
             AddPlaneToAeroport();
+
+
             timetable = new TimetableModel(aeroports);
         }
         public static SingleStorage GetInstance()
@@ -32,11 +38,7 @@ namespace Project_Airline_info_MainAcademy.Storage
         }
         private void AddAeroports()
         {
-            aeroports.Add(new AeroportModel("Boryspil airport", 10));
-            aeroports.Add(new AeroportModel("Lviv airport", 8));
-            aeroports.Add(new AeroportModel("airport Kiev", 6));
-            aeroports.Add(new AeroportModel("Odessa airport", 6));
-            aeroports.Add(new AeroportModel("Kharkiv airport", 4));
+            
         }
         private void AddPlaneToAeroport()
         {
@@ -78,8 +80,6 @@ namespace Project_Airline_info_MainAcademy.Storage
 
             allPlanes.Add(new PlaneModel("Boeing747", 80, 40, 10));
             allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-
-
         }
         public AeroportModel FindTheAeroportWithIndex(int index)
         {
