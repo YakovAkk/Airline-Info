@@ -30,6 +30,52 @@ namespace Project_Airline_info_MainAcademy
             }
             return FileContents;
         }
+        public async Task<List<AeroportModel>> ReadFromFileAeroport(string path)
+        {
+            using (FileStream fstream = File.OpenRead(path))
+            {
+                byte[] array = new byte[fstream.Length];
+                // асинхронное чтение файла
+                await fstream.ReadAsync(array, 0, array.Length);
+
+                string textFromFile = System.Text.Encoding.Default.GetString(array);
+
+                List<AeroportModel> aeroport = JsonConvert.DeserializeObject<List<AeroportModel>>(textFromFile);
+
+                return aeroport;
+            }
+        }
+
+        public async Task<List<PlaneModel>> ReadFromFilePlane(string path)
+        {
+            using (FileStream fstream = File.OpenRead(path))
+            {
+                byte[] array = new byte[fstream.Length];
+                // асинхронное чтение файла
+                await fstream.ReadAsync(array, 0, array.Length);
+
+                string textFromFile = System.Text.Encoding.Default.GetString(array);
+
+                List<PlaneModel> planes = JsonConvert.DeserializeObject<List<PlaneModel>>(textFromFile);
+
+                return planes;
+            }
+        }
+
+        public void WriteToFileJson(string json, string path)
+        {
+            using (FileStream File = new FileStream(path, FileMode.OpenOrCreate))
+            {
+                // преобразуем строку в байты
+                byte[] array = System.Text.Encoding.Default.GetBytes(json);
+
+                // запись массива байтов в файл
+                File.Write(array, 0, array.Length);
+
+                Console.WriteLine("Текст записан в файл");
+            }
+
+        }
 
     }
 }

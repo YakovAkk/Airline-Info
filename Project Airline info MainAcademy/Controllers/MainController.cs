@@ -190,7 +190,7 @@ namespace Project_Airline_info_MainAcademy
                     break;
 
                 case 6:
-                    _myViewConsole.MenuCityWithAeroport();
+                    _myViewConsole.MenuCityWithAeroport(_myStorage.aeroports);
                     break;
                 default:
                     break;
@@ -205,7 +205,7 @@ namespace Project_Airline_info_MainAcademy
             {
                 case 1:
 
-                    _myViewConsole.MenuCityWithAeroport();
+                    _myViewConsole.MenuCityWithAeroport(_myStorage.aeroports);
                     break;
 
                 case 2:

@@ -27,7 +27,7 @@ namespace Project_Airline_info_MainAcademy
 
                 if (TempPlane.StatusOfFly == StatusOfFly.GateClosed)
                 {
-                    _myViewConsole.ShowArrivedOfPlane();
+                    _myViewConsole.ShowArrivedOfPlane(_myStorage.aeroports);
 
                     var NumOfAeroport = Initialization("Your choose : ");
 

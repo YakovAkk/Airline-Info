@@ -32,11 +32,11 @@ namespace Project_Airline_info_MainAcademy
             NumOfPlane = Initialization("Choose The plane : ");
             PlaneEvent(NumOfPlane);
         }
-        public void MenuCityWithAeroport()
+        public void MenuCityWithAeroport(List<AeroportModel> aeroports)
         {
             Console.Clear();
 
-            Header();
+            Header(aeroports);
             var NumOfAeroport = Initialization("Your choose : ");
             CityAeroportMenuEvent(NumOfAeroport);
 
@@ -82,11 +82,11 @@ namespace Project_Airline_info_MainAcademy
 
             return;
         }
-        public void ShowArrivedOfPlane()
+        public void ShowArrivedOfPlane(List<AeroportModel> aeroports)
         {
             Console.Clear();
             Console.WriteLine("Plane will be flown to aeroport, choose it ");
-            Header();
+            Header(aeroports);
         }
         public void ErrorOfPlane()
         {
@@ -177,14 +177,15 @@ namespace Project_Airline_info_MainAcademy
         }
 
         //// Headers
-        private void Header()
+        private void Header(List<AeroportModel> aeroports)
         {
-            Console.WriteLine("1) Boryspil airport");
-            Console.WriteLine("2) Lviv airport");
-            Console.WriteLine("3) airport Kiev");
-            Console.WriteLine("4) Odessa airport");
-            Console.WriteLine("5) Kharkiv airport");
-            Console.WriteLine("6) Exit");
+            int i = 1;
+            foreach (var aeroport in aeroports)
+            {
+                Console.WriteLine($"{i}) {aeroport.NameOfAeroport}");
+                i++;
+            }
+            Console.WriteLine($"{i}) Exit");
         }
         private void HeaderForPlaneMenu()
         {

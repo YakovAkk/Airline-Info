@@ -8,22 +8,20 @@ namespace Project_Airline_info_MainAcademy.Storage
 {
     class SingleStorage
     {
+        private ParseModel _parseModel { get; }
         public TimetableModel timetable { get; }
-        public List<AeroportModel> aeroports { get; }
-        public List<PlaneModel> allPlanes { get; }
+        public List<AeroportModel> aeroports { get; private set; }
+        public List<PlaneModel> allPlanes { get; private set; }
         private static SingleStorage myStorage;
         private SingleStorage()
         {
             aeroports = new List<AeroportModel>();
             allPlanes = new List<PlaneModel>();
-
+            _parseModel = new ParseModel();
 
             AddAeroports();
-            AddPlaneToList();
-
-
+            AddPlanes();
             AddPlaneToAeroport();
-
 
             timetable = new TimetableModel(aeroports);
         }
@@ -36,10 +34,18 @@ namespace Project_Airline_info_MainAcademy.Storage
 
             return myStorage;
         }
-        private void AddAeroports()
+        private async void AddAeroports()
         {
-            
+            string path = @"Aeroports.json";
+
+            aeroports = await _parseModel.ReadFromFileAeroport(path);
         }
+
+        private async void AddPlanes()
+        {
+            string path = @"Plane.json";
+            allPlanes = await _parseModel.ReadFromFilePlane(path);
+        } 
         private void AddPlaneToAeroport()
         {
             int counter = 0;
@@ -57,30 +63,7 @@ namespace Project_Airline_info_MainAcademy.Storage
 
             }
         }
-        private void AddPlaneToList()
-        {
-            allPlanes.Add(new PlaneModel("Boeing737", 70, 50, 20));
-            allPlanes.Add(new PlaneModel("Ту104", 75, 50, 30));
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-            allPlanes.Add(new PlaneModel("Boeing747", 80, 40, 10));
-            allPlanes.Add(new PlaneModel("А380", 80, 40, 20));
-
-            allPlanes.Add(new PlaneModel("Ту104", 75, 50, 30));
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-            allPlanes.Add(new PlaneModel("Boeing747", 80, 40, 10));
-            allPlanes.Add(new PlaneModel("А380", 80, 40, 20));
-
-            allPlanes.Add(new PlaneModel("Ту104", 75, 50, 30));
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-            allPlanes.Add(new PlaneModel("Ту104", 75, 50, 30));
-
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-            allPlanes.Add(new PlaneModel("Boeing747", 80, 40, 10));
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-
-            allPlanes.Add(new PlaneModel("Boeing747", 80, 40, 10));
-            allPlanes.Add(new PlaneModel("Boeing777Х", 77, 60, 10));
-        }
+     
         public AeroportModel FindTheAeroportWithIndex(int index)
         {
             return myStorage.aeroports.ElementAt(index - 1);
