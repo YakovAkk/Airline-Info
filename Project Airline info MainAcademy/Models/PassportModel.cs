@@ -23,9 +23,9 @@ namespace Project_Airline_info_MainAcademy
         
         public PassportModel()
         {
-            ArrFirstName = new ParseModel().ParseJsonFile("First Name.json");
-            ArrSecondName = new ParseModel().ParseJsonFile("Second Name.json");
-            ArrNationality = new ParseModel().ParseJsonFile("Nationality.json");
+            ArrFirstName = new ParseConrtoller().ParseJsonFile("First Name.json");
+            ArrSecondName = new ParseConrtoller().ParseJsonFile("Second Name.json");
+            ArrNationality = new ParseConrtoller().ParseJsonFile("Nationality.json");
 
 
             FirstName = RandFirstName();

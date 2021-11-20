@@ -17,6 +17,14 @@ namespace Project_Airline_info_MainAcademy
         public event Action<AeroportModel> TimeableAeroportEvent = delegate { };
         public event Action<PlaneModel> TimeablePlaneEvent = delegate { };
         public event Action<int> CountOfCustomersEvent = delegate { };
+        public event Action<int> AdminMenuEvent = delegate { };
+        public event Action<int> FindRaceByNumEvent = delegate { };
+        public event Action<int> FindEndDestinationAirportEvent = delegate { };
+        public event Action<int> FindRacesWhichCostLessThanXEvent = delegate { };
+        public event Action<string> PasswordEvent = delegate { };
+        public event Action<int> MainAdminMenuEvent = delegate { };
+        public event Action<int> RemoveEvent = delegate { };
+        public event Action<PlaneModel> CreatePlaneEvent = delegate { };
         // Menu 
         public void MenuOfAeroport(AeroportModel TempAeroport)
         {
@@ -52,8 +60,144 @@ namespace Project_Airline_info_MainAcademy
            var UserNum = (Initialization("Your choose : "));
            MenuOfPlaneEvent(UserNum);
         }
-
+        public void MenuAdmin()
+        {
+            HeaderAdmin();
+            var UserNum = (Initialization("Your choose : "));
+            AdminMenuEvent(UserNum);
+        }
         // Messages To user
+        public void ShowErrorDelete()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Plane wasn't deleted");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowSuccessDelete()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Plane was deleted");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowAddPlaneToAeroport()
+        {
+            Console.WriteLine("Now you must write parameters of plane");
+            Console.Write("Name of plane : ");
+            var NameOfPlane = Console.ReadLine();
+            var AmountEconomy = Initialization("Amount place in Economy class : ");
+            var AmountBusiness = Initialization("Amount place in Business class : ");
+            var AmountFirst = Initialization("Amount place in First class : ");
+
+            CreatePlaneEvent(new PlaneModel(NameOfPlane, AmountEconomy, AmountBusiness, AmountFirst));
+        }
+        public void ShowInfoAboutPlaneForDelete(AeroportModel userAeroport)
+        {
+            Console.WriteLine("===============================");
+            userAeroport.AllInfoAboutPlane();
+            Console.WriteLine("===============================");
+            RemoveEvent(Initialization("Your Choose : "));
+        }
+        public void PrintTimetableForAeroportByNum(AeroportModel TempAeroports, List<TimetableModel> Timetables, int Num)
+        {
+            foreach (var Timetable in Timetables)
+            {
+                if (Timetable.StartPoint == TempAeroports.NameOfAeroport || Timetable.EndPoint == TempAeroports.NameOfAeroport && Timetable.NumOfRace == Num)
+                {
+                    Console.WriteLine(Timetable.ToString());
+                    Console.WriteLine("================================================");
+                }
+            }
+            ShowEndedOFSentence();
+        }
+        public void ShowPersonFirst()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("You should fly in first class in any Races");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowPersonBusiness()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("You should fly in Business class in any Races");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowPersonEconomy()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("You should fly in Economy class in any Races");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowPlaneWhichHaveFreePlaces(List<PlaneModel> planes)
+        {
+            Console.Clear();
+            Console.WriteLine("You can sit on these planes : ");
+            foreach (var plane in planes)
+            {
+                if (plane.isFree())
+                {
+                    Console.WriteLine(plane.ToString());
+                }
+            }
+        }
+        public void EnterLikeAdmin()
+        {
+            Console.Clear();
+            Console.Write("Enter password : ");
+            PasswordEvent(Console.ReadLine());
+        }
+        public void ShowPersonWithoutMoney()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Sorry, person without money doesn't serviced");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowRacesWhichCostLessThanX()
+        {
+            var UserNum = (Initialization("Enter the Sum : "));
+            FindRacesWhichCostLessThanXEvent(UserNum);
+        }
+        public void ShowFindRaceWitnEndPoint(List<AeroportModel> aeroports)
+        {
+            Header(aeroports);
+            var NumOfAeroport = Initialization("Choose name of final destination airport: ");
+            FindEndDestinationAirportEvent(NumOfAeroport);
+        }
+        public void ShowFindRaceByNum()
+        {
+            var UserNum = (Initialization("Enter The Number : "));
+            FindRaceByNumEvent(UserNum);
+        }
+        public void ShowMenuMainAdmin()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Welcome, sir");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("1) Add plane to Aeroport");
+            Console.WriteLine("2) Remove plane From Aeroport");
+            Console.WriteLine("3) Back");
+            MainAdminMenuEvent(Initialization("Your choose : "));
+        }
+        public void ShowAccessDenied()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Access denied !");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        public void ShowAeroportWithDestitation(List<TimetableModel> Timetables, AeroportModel TempAeroport)
+        {
+            Console.Clear();
+            foreach (var Timetable in Timetables)
+            {
+                if (Timetable.EndPoint == TempAeroport.NameOfAeroport)
+                {
+                    Console.WriteLine(Timetable.ToString());
+                    Console.WriteLine("================================================");
+                }
+            }
+            ShowEndedOFSentence();
+        }
         public void ShowErrorOfArrived()
         {
             Console.Clear();
@@ -109,8 +253,15 @@ namespace Project_Airline_info_MainAcademy
             var NumberOfPerson = 1;
             foreach (var Person in Aeroport.GetListWithPeopleInAeroport())
             {
-                Console.WriteLine($"{NumberOfPerson++}) {Person.ToString()}");
-                Console.WriteLine("===============================");
+                if(Person.PersonsPassport != null)
+                {
+                    Console.WriteLine($"{NumberOfPerson++}) {Person.ToString()}");
+                    Console.WriteLine("===============================");
+                }
+                else
+                {
+                    break;
+                }
             }
             Console.Write("Enter something...");
             Console.ReadKey();
@@ -141,9 +292,7 @@ namespace Project_Airline_info_MainAcademy
             Console.WriteLine("===============================");
             TempAeroport.AllInfoAboutPlane();
             Console.WriteLine("===============================");
-
             Console.ReadKey();
-
             Console.Clear();
         }
         public void ShowInfoAboutAeroport(AeroportModel TempAeroport)
@@ -176,7 +325,20 @@ namespace Project_Airline_info_MainAcademy
             }
         }
 
-        //// Headers
+        // Headers
+        private void HeaderAdmin()
+        {
+            Console.Clear();
+            Console.WriteLine("1) Show all races");
+            Console.WriteLine("2) Find a race with number");
+            Console.WriteLine("3) Find a flight by your final destination");
+            Console.WriteLine("4) Show all rases today");
+            Console.WriteLine("5) Show races which will be in the nearest 7 days");
+            Console.WriteLine("6) Show races which cost less than x UAH");
+            Console.WriteLine("7) Show races which have free place");
+            Console.WriteLine("8) Enter Like Administrator");
+            Console.WriteLine("9) Exit");
+        }
         private void Header(List<AeroportModel> aeroports)
         {
             int i = 1;
@@ -205,8 +367,11 @@ namespace Project_Airline_info_MainAcademy
             Console.WriteLine("3) Aeroport Info");
             Console.WriteLine("4) List of plane");
             Console.WriteLine("5) Timetable for this Aeroport will be shown");
-            Console.WriteLine("6) Show to other aeroport");
+            Console.WriteLine("6) Admin");
+            Console.WriteLine("7) Show to other aeroport");
+
         }
+
         //// other Funk
         public void ViewDepartThePlaneToNextAeroport(AeroportModel TempAeroport)
         {
@@ -299,8 +464,21 @@ namespace Project_Airline_info_MainAcademy
 
         public void ShowAddedPersonToList(PersonModel Person)
         {
-            Console.WriteLine("================================");
-            Console.WriteLine($"\n{Person.ToString()} was append to plane into Business class");
+            if(Person.PersonsTicket.ClassTicket == ClassFromPlane.First)
+            {
+                Console.WriteLine("================================");
+                Console.WriteLine($"\n{Person.ToString()} was append to plane into First class");
+            }
+            if (Person.PersonsTicket.ClassTicket == ClassFromPlane.Business)
+            {
+                Console.WriteLine("================================");
+                Console.WriteLine($"\n{Person.ToString()} was append to plane into Business class");
+            }
+            if (Person.PersonsTicket.ClassTicket == ClassFromPlane.Economy)
+            {
+                Console.WriteLine("================================");
+                Console.WriteLine($"\n{Person.ToString()} was append to plane into Economy class");
+            }
         }
         public void ShowEndedOFSentence()
         {
@@ -350,7 +528,5 @@ namespace Project_Airline_info_MainAcademy
 
             return valueUser;
         }
-
-
     }
 }

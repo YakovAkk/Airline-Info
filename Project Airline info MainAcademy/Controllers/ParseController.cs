@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project_Airline_info_MainAcademy
 {
-    class ParseModel
+    class ParseConrtoller
     {
         public string[] ParseJsonFile(string pathToFile)
         {
@@ -30,13 +30,13 @@ namespace Project_Airline_info_MainAcademy
             }
             return FileContents;
         }
-        public async Task<List<AeroportModel>> ReadFromFileAeroport(string path)
+        public List<AeroportModel> ReadFromFileAeroport(string path)
         {
             using (FileStream fstream = File.OpenRead(path))
             {
                 byte[] array = new byte[fstream.Length];
                 // асинхронное чтение файла
-                await fstream.ReadAsync(array, 0, array.Length);
+                fstream.Read(array, 0, array.Length);
 
                 string textFromFile = System.Text.Encoding.Default.GetString(array);
 
@@ -45,14 +45,13 @@ namespace Project_Airline_info_MainAcademy
                 return aeroport;
             }
         }
-
-        public async Task<List<PlaneModel>> ReadFromFilePlane(string path)
+        public List<PlaneModel> ReadFromFilePlane(string path)
         {
             using (FileStream fstream = File.OpenRead(path))
             {
                 byte[] array = new byte[fstream.Length];
                 // асинхронное чтение файла
-                await fstream.ReadAsync(array, 0, array.Length);
+                fstream.Read(array, 0, array.Length);
 
                 string textFromFile = System.Text.Encoding.Default.GetString(array);
 
@@ -61,7 +60,6 @@ namespace Project_Airline_info_MainAcademy
                 return planes;
             }
         }
-
         public void WriteToFileJson(string json, string path)
         {
             using (FileStream File = new FileStream(path, FileMode.OpenOrCreate))
@@ -76,6 +74,15 @@ namespace Project_Airline_info_MainAcademy
             }
 
         }
-
+        public List<AeroportModel> ReadFromServerAeroport(string content)
+        {
+             List<AeroportModel> aeroport = JsonConvert.DeserializeObject<List<AeroportModel>>(content);
+             return aeroport;
+        }
+        public List<PlaneModel> ReadFromServerPlane(string content)
+        {
+            List<PlaneModel> planes = JsonConvert.DeserializeObject<List<PlaneModel>>(content);
+            return planes;
+        }
     }
 }

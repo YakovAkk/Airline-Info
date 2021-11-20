@@ -95,7 +95,19 @@ namespace Project_Airline_info_MainAcademy
                 CountPassagersInsideEconomyClass - CountPassagersInsideBusinessClass - CountPassagersInsideFirstClass;
         }
 
-        
+        public bool isFree()
+        {
+            if(CountPassagersInsideBusinessClass == MaxPlaceBusinessClass 
+                && CountPassagersInsideEconomyClass == MaxPlaceEcomomyClass 
+                && CountPassagersInsideFirstClass == MaxPlaceFirstClass)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 
 }

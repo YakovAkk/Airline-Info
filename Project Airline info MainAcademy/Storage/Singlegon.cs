@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_Airline_info_MainAcademy.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace Project_Airline_info_MainAcademy.Storage
 {
     class SingleStorage
     {
-        private ParseModel _parseModel { get; }
+        private HttpController _httpController { get; }
+        private ParseConrtoller _parseModel { get; }
         public TimetableModel timetable { get; }
         public List<AeroportModel> aeroports { get; private set; }
         public List<PlaneModel> allPlanes { get; private set; }
@@ -17,10 +19,18 @@ namespace Project_Airline_info_MainAcademy.Storage
         {
             aeroports = new List<AeroportModel>();
             allPlanes = new List<PlaneModel>();
-            _parseModel = new ParseModel();
+            _parseModel = new ParseConrtoller();
+            _httpController = new HttpController();
 
-            AddAeroports();
-            AddPlanes();
+
+            //AddAeroportsFromServer();
+            //AddPlanesFromServer();
+
+
+            AddAeroportsFromFile();
+            AddPlanesFromFile();
+
+
             AddPlaneToAeroport();
 
             timetable = new TimetableModel(aeroports);
@@ -34,18 +44,25 @@ namespace Project_Airline_info_MainAcademy.Storage
 
             return myStorage;
         }
-        private async void AddAeroports()
+        private void AddAeroportsFromFile()
         {
             string path = @"Aeroports.json";
 
-            aeroports = await _parseModel.ReadFromFileAeroport(path);
+            aeroports = _parseModel.ReadFromFileAeroport(path);
         }
-
-        private async void AddPlanes()
+        private void AddPlanesFromFile()
         {
             string path = @"Plane.json";
-            allPlanes = await _parseModel.ReadFromFilePlane(path);
-        } 
+            allPlanes = _parseModel.ReadFromFilePlane(path);
+        }
+        private void AddAeroportsFromServer()
+        {
+            aeroports = _parseModel.ReadFromServerAeroport(_httpController.ParseAeroports());
+        }
+        private void AddPlanesFromServer()
+        {
+            allPlanes = _parseModel.ReadFromServerPlane(_httpController.ParsePlanes());
+        }
         private void AddPlaneToAeroport()
         {
             int counter = 0;
@@ -63,7 +80,19 @@ namespace Project_Airline_info_MainAcademy.Storage
 
             }
         }
-     
+
+        public bool RemovePlaneFromList(PlaneModel plane)
+        {
+            if(plane != null)
+            {
+                allPlanes.Remove(plane);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public AeroportModel FindTheAeroportWithIndex(int index)
         {
             return myStorage.aeroports.ElementAt(index - 1);

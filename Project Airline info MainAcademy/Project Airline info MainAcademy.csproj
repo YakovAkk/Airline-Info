@@ -65,10 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HttpController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Models\AeroportModel.cs" />
     <Compile Include="Models\CurrencyTypeModel.cs" />
-    <Compile Include="Models\ParseModel.cs" />
+    <Compile Include="Controllers\ParseController.cs" />
     <Compile Include="Models\PassportModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Models\PlaneModel.cs" />
